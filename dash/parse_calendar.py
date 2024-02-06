@@ -47,7 +47,12 @@ def parse_singular_calendar(url: str) -> str:
         #     print(event['DESCRIPTION'])
 
         print("\n")
-        
+
+        # Clean event summary by removing any text after a colon if present
+        if ":" in event['SUMMARY']:
+            event['SUMMARY'] = event['SUMMARY'].split(':')[0] + ': ' + event['SUMMARY'].split(':')[1].split()[0]
+
+
         duration = event['DTEND'].dt - event['DTSTART'].dt
 
         # prepare json data
