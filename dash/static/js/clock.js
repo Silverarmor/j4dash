@@ -3,7 +3,7 @@
 
 // Get the clock element
 const clockElement = document.getElementById("clock");
-console.log(clockElement);
+// console.log(clockElement);
 
 // Function to update the clock
 function updateClock() {

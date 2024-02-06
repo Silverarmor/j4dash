@@ -1,3 +1,9 @@
+# CREDENTIALS
+CLIENT_SECRET.*
+credentials.*
+service_account.*
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

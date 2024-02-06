@@ -1,21 +1,11 @@
 from flask import Flask, render_template
 from datetime import datetime
-
-
-#* Parse calendar data #
-
 import parse_calendar
-
-
-#* prepare variables
-formatted_date = ""
-
-# create date
 
 
 ##* WEB APP ##
 app = Flask(__name__)
-app.config.from_object('config')
+# app.config.from_object('config')
 
 
 @app.route("/")
@@ -37,7 +27,7 @@ def home():
 
 
 
-    
+
     return render_template("index.html", date=date)
 
 @app.route("/more")
@@ -46,9 +36,13 @@ def more():
 
 @app.route("/api/cal")
 def cal():
-    #! todo
-    return
+    # return parse_calendar.parse_all_calendars()
+    #! TESTING LINE
+    import json
+    with open("dash/example.json") as file:
+        data = json.load(file)
+    return data
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

@@ -1,8 +1,20 @@
+/* Font Imports */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+/* Universal Styling  */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial; /* Backup font */
+    font-family: 'Nunito', sans-serif; /* Primary font */
+}
+
 body {
-    /* margin: 0; */
-    /* padding: 0; */
+
     /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
-    color: rgb(92, 221, 23);
+    /* color: rgb(92, 221, 23); */
 
     /* prevent scrolling, i.e. dashboard */
     height: 100%;
@@ -19,7 +31,7 @@ section {
     flex: 4;
 }
 
-.RHSBox {
+#RHSCalBox {
     flex: 4;
     /* margin: 100px; */
     padding: 10px;
