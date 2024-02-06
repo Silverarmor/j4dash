@@ -128,9 +128,38 @@ async function refreshTimetable() {
             eventbg.style.height = `${duration*height}px`;
 
             //* Decide colour for the event.
-            //TODO
-            const colour = "rgb(73, 134, 231)"
+            switch (user.user) {
+                case "Jayden":
+                    var colour_palette = JK_colours; 
+                    break;
+                case "Jacob":
+                    var colour_palette = JP_colours;
+                    break;
+                case "Joshua AC":
+                    var colour_palette = JAC_colours;
+                    break;
+                case "Joshua T":
+                    var colour_palette = JT_colours;
+                    break;
+                default:
+                    var colour_palette = {"default": "rgb(73, 134, 231)"};
+            }
+            
+            var colour = "blank";
 
+            // console.log(colour_palette);
+            for (const [key, value] of Object.entries(colour_palette)) {
+                if (event.name.includes(key)) {
+                    var colour = value;
+                    break;
+                }
+            }
+
+            if (colour == "blank") {
+                colour = colour_palette["default"];
+            }
+
+            // console.log(colour);
 
             // Set the background color of event
             eventbg.style.backgroundColor = colour;
