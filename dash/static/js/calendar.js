@@ -19,8 +19,6 @@ function writeHeaderCell(tr, name){
     td.style.fontWeight = "bold";
     td.style.border = "1px solid black";
     td.style.padding = "8px";
-    
-
 }
 
 
@@ -43,11 +41,12 @@ async function refreshTimetable() {
 
 
     const users = await fetchTimetable();
-  
+    
+    /* 
     //* Create table
     const tbl = document.createElement("table");
     tbl.style.width = '100%';
-    tbl.setAttribute('border', '2');
+    tbl.setAttribute('border', '1');
 
     // create header row
     const tr = tbl.insertRow();
@@ -58,6 +57,8 @@ async function refreshTimetable() {
         console.log(user.user); // prints name to console
         writeHeaderCell(tr, user.user);
     }
+    */
+
 
     // loop through users to create events/rows.
     for (const user of users) {
