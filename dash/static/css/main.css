@@ -61,7 +61,7 @@ section {
     display: flex;
 }
 
-.headers {
+#headers {
     height: 100%;
     display: flex;
     width: 100%;
@@ -108,12 +108,12 @@ section {
 
 .ticktop {
     /* border-top: 1px solid rgb(100, 100, 100); */
-    border-bottom: 1px solid rgb(215, 215, 215);
+    border-bottom: 1px dashed rgb(215, 215, 215);
     height: 50%;
 }
 
 .tickbtm {
-    border-bottom: 1px solid rgb(100, 100, 100);
+    border-bottom: 1px solid rgb(120, 120, 120);
     height: 50%;
 }
 
@@ -144,7 +144,7 @@ section {
     text-align: center;
     padding: 0px;
     border: none;
-    
+    box-sizing: border-box;
 }
 
 /* text in all chips */

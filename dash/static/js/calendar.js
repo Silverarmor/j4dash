@@ -32,12 +32,17 @@ async function fetchTimetable() {
 
 // refresh the timetable
 async function refreshTimetable() {
+    // get the calcontent container.
+    const eventElementContainer = document.getElementById("calcontent");
+
+    // Add a loading indicator to the event element container
+    const loadingIndicator = document.createElement("div");
+    loadingIndicator.textContent = "Loading...";
+    eventElementContainer.appendChild(loadingIndicator);
+    
     
     // get the users from the API
     const users = await fetchTimetable();
-
-    // get the calcontent container.
-    const eventElementContainer = document.getElementById("calcontent");
 
     
     // Remove events that already exist on the page if any exist,
@@ -47,7 +52,6 @@ async function refreshTimetable() {
             previousEventElement.remove();
         }
     }
-    
 
     // figure out how tall each hour is
     const height = document.getElementsByClassName("hourcol").item(0).clientHeight;
@@ -83,6 +87,15 @@ async function refreshTimetable() {
         // append to eventElementContainer
         eventElementContainer.appendChild(contentcolElement);
 
+        // Add user's names to top.
+        // Get headers item
+        const headersElement = document.getElementById("headers");
+        const userLabel = document.createElement("div");
+        userLabel.classList.add("namecol");
+        userLabel.textContent = user.user;
+
+        headersElement.appendChild(userLabel);
+
         // loop through the events each user has.
         for (const event of user.events) {
             console.log(event.name, event.start, event.end, event.duration, event.description, event.location);
@@ -114,10 +127,21 @@ async function refreshTimetable() {
             const duration = (end - start)/1000/3600;
             eventbg.style.height = `${duration*height}px`;
 
-            // Set the background color of event
-            eventbg.style.backgroundColor = "rgb(73, 134, 231)";
+            //* Decide colour for the event.
             //TODO
+            const colour = "rgb(73, 134, 231)"
 
+
+            // Set the background color of event
+            eventbg.style.backgroundColor = colour;
+            // and set border on Left
+            eventChip.style.borderLeft = `3px solid ${colour}`;
+            // eventChip.style.borderBottom = `1px solid black`;
+            // eventChip.style.boxSizing = "border-box";
+
+            // and set 'borders'
+            // eventChip.style.outline = "1px solid black";
+            
             // Append background to chip
             eventChip.appendChild(eventbg);
 
