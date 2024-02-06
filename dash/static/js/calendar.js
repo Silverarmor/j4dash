@@ -30,17 +30,28 @@ async function fetchTimetable() {
     return events;
   }
 
-
+// refresh the timetable
 async function refreshTimetable() {
-    const eventElementContainer = document.getElementById("RHSCalBox");
-
-    // Remove events that already exist on the page if any exist
-    for (const previousEventElement of eventElementContainer.children) {
-        previousEventElement.remove(); // i think this works? forgot
-    }
-
-
+    
+    // get the users from the API
     const users = await fetchTimetable();
+
+    // get the calcontent container.
+    const eventElementContainer = document.getElementById("calcontent");
+
+    
+    // Remove events that already exist on the page if any exist,
+    // EXCLUDING the timecol, which acts as an offset
+    for (const previousEventElement of eventElementContainer.children) {
+        if (!previousEventElement.classList.contains("timecol")) {
+            previousEventElement.remove();
+        }
+    }
+    
+
+    // figure out how tall each hour is
+    const height = document.getElementsByClassName("hourcol").item(0).clientHeight;
+
     
     /* 
     //* Create table
@@ -57,57 +68,68 @@ async function refreshTimetable() {
         console.log(user.user); // prints name to console
         writeHeaderCell(tr, user.user);
     }
+
+    eventElementContainer.appendChild(tbl);
+
     */
 
 
     // loop through users to create events/rows.
     for (const user of users) {
+        // create contentcol (column) for the user
+        const contentcolElement = document.createElement("div");
+        contentcolElement.classList.add("contentcol");
+
+        // append to eventElementContainer
+        eventElementContainer.appendChild(contentcolElement);
+
         // loop through the events each user has.
         for (const event of user.events) {
             console.log(event.name, event.start, event.end, event.duration, event.description, event.location);
-        
+
+            // create an element (chip) for the event
+            const eventChip = document.createElement("div");
+            const eventbg = document.createElement("div");
+            const eventContent = document.createElement("div");
+            
+            eventChip.classList.add("chip");
+            eventbg.classList.add("bgchip");
+            eventContent.classList.add("chipcontent");
+            
+            // Figure out what time the event starts and ends
+            const start = new Date(event.start);
+            const end = new Date(event.end);
+
+            
+            //! HARD CODED 8AM START
+            // time-calStart reports the time in milliseconds since the start of the day.
+            // convert to hours /1000/3600 then multiply by height.
+            const calStart = new Date(event.start).setHours(8,0,0,0);
+            const eventOffset = (start - calStart)/1000/3600*height;
+
+            // Set the offset/start of the event
+            eventChip.style.top = `${eventOffset}px`;
+
+            // Set the height of the event
+            const duration = (end - start)/1000/3600;
+            eventbg.style.height = `${duration*height}px`;
+
+            // Set the background color of event
+            eventbg.style.backgroundColor = "rgb(73, 134, 231)";
+            //TODO
+
+            // Append background to chip
+            eventChip.appendChild(eventbg);
+
+            // Set the content of the event
+            eventContent.textContent = event.name;
+            eventChip.appendChild(eventContent);
+
+            // append to contentcolElement
+            contentcolElement.appendChild(eventChip);
+        }
     }
-        eventElementContainer.appendChild(tbl);
-  
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-        // // create an element for the event
-        // const eventElement = document.createElement("div");
-        // const eventTitle = document.createElement("p"); // idk
-    
-        // // so you can style it using css
-        // eventElement.classList.add("eventElement"); // might be className idk
-        // eventTitle.classList.add("eventTitle");
-    
-        // const start = new Date(event.start);
-        // const end = new Date(event.end);
-    
-        // const eventOffset = 10 * ((end - start) / 1000 / 60 / 60); // assuming one hour is 10em
-    
-        // eventTitle.textContent = event.title;
-        // event.style.top = `${eventOffset}em`; // assuming one hour is 10em
-        // // note more css is required probably (e.g. position: absolute https://developer.mozilla.org/en-US/docs/Web/CSS/position), but you should just add it inside `<style>` instead of using js to add it
-    
-        // eventElement.appendChild(eventTitle);
-        // eventElementContainer.appendChild(eventElement);
-      }
-    }
+}
 
   
   refreshTimetable();

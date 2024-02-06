@@ -34,7 +34,7 @@ section {
 #RHSCalBox {
     flex: 4;
     /* margin: 100px; */
-    padding: 10px;
+    padding: 2px;
     /* border: 100px; */
 }
 
@@ -50,3 +50,139 @@ section {
     font-size: 75px;
     font-family: "Helvetica Neue", Helvetica;
 }
+
+.calheader {
+    background-color: rgb(65, 161, 212);
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    height: 25px;
+    text-align: center;
+    width: 100%;
+    display: flex;
+}
+
+.headers {
+    height: 100%;
+    display: flex;
+    width: 100%;
+}
+
+/** TIME TICKS  */
+.timegap {
+    width: 35px;
+}
+
+.timecol {
+    height: 100%;
+    float: left;
+    width: 45px;
+    text-align: right;
+    border-right: 1px solid rgb(221, 221, 221);
+}
+
+.namecol {
+    flex: 1;
+    text-align: center;
+}
+
+.calbody {
+    position: relative;
+    display: block;
+    border-right: 1px solid rgb(194, 194, 194);
+    border-bottom: 1px solid rgb(194, 194, 194);
+    border-left: 1px solid rgb(194, 194, 194);
+}
+
+.hourcol {
+    height: 65px;
+    font-size: 16px;
+    font-weight: 600;
+    /* padding-top: 2px; */
+    padding-right: 2px;
+}
+
+.ticks {
+    /* height: 100%; */
+    /* placeholder */
+}
+
+.ticktop {
+    /* border-top: 1px solid rgb(100, 100, 100); */
+    border-bottom: 1px solid rgb(215, 215, 215);
+    height: 50%;
+}
+
+.tickbtm {
+    border-bottom: 1px solid rgb(100, 100, 100);
+    height: 50%;
+}
+
+/** EVENTS ON CALENDAR */
+#calcontent {
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    display: flex;
+}
+
+.dayoffset {
+
+}
+
+.contentcol {
+    position: relative;
+    /* min-height: 1px; */
+    flex: 1;
+}
+
+/* creates all chips*/
+.chip{
+    position: absolute;
+    width: 100%;
+    font-weight: 600;
+    color: black;
+    text-align: center;
+    padding: 0px;
+    border: none;
+    
+}
+
+/* text in all chips */
+.chipcontent {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    position: absolute;
+}
+
+.chipA {
+    /** DISTANCE FROM TOP */
+    top: 130px;
+    /* position: relative; */
+    
+    /* CAN ADD BORDER */
+    /* border-left: 4px solid;  */
+    
+}
+
+.bgchipA {
+    /** EVENT HEIGHT/LENGTH */
+    height: 65px;
+
+    /* Background */
+    background-color: rgb(73, 134, 231);
+    border-color: rgb(73, 134, 231);
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-size: 20px 20px;
+    opacity: 0.4;
+
+}
+
+.bgchip {
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-size: 20px 20px;
+    opacity: 0.4;
+}
+
+
