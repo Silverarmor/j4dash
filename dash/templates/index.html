@@ -2,10 +2,43 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <title>Flask Tutorial</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+
   </head>
   <body>
-    <h1> My First Try Using Flask </h1>
-    <p> Flask is Fun </p>
+    <section>
+      <div class="LHSBox">
+
+        <div class="date">
+          {{ date }}  
+        </div>
+
+        <div id="clock">
+          <!-- time is updated every second by clock.js -->
+        </div>
+
+        <div class="weather">
+
+          
+        </div>
+
+      </div>
+
+      <div class="RHSBox">
+        <h1>Calendar would go here.</h1>
+        <p>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br></p>
+        <p>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br></p>
+        <p>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br></p>
+      </div>
+
+    </section>
+
+    <!-- SCRIPTS -->
+    <script src="../static/js/clock.js"></script>
   </body>
 </html>
