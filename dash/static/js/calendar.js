@@ -89,7 +89,7 @@ async function refreshTimetable() {
         
         const userLabel = document.createElement("div");
         userLabel.classList.add("namecol");
-        userLabel.textContent = user.user;
+        userLabel.textContent = user.user.replace("_", " ");
 
         headersElement.appendChild(userLabel);
 
@@ -114,8 +114,9 @@ async function refreshTimetable() {
             //! HARD CODED 8AM START
             // time-calStart reports the time in milliseconds since the start of the day.
             // convert to hours /1000/3600 then multiply by height.
+            // Add 1 height for DAY offset.
             const calStart = new Date(event.start).setHours(8,0,0,0);
-            const eventOffset = (start - calStart)/1000/3600*height;
+            const eventOffset = (start - calStart)/1000/3600*height + height;
 
             // Set the offset/start of the event
             eventChip.style.top = `${eventOffset}px`;
@@ -213,8 +214,9 @@ function drawTimeMarker(){
     //! HARD CODED 8AM START
     // currentTime-calStart reports the time in milliseconds since the start of the day.
     // convert to hours /1000/3600 then multiply by height.
+    // add height for DAY offset
     const calStart = new Date().setHours(8,0,0,0);
-    const eventOffset = (currentTime - calStart)/1000/3600*height;
+    const eventOffset = (currentTime - calStart)/1000/3600*height + height;
 
     // Set the offset of the time marker
     timeMarker.style.top = `${eventOffset}px`;
@@ -248,7 +250,10 @@ async function fetchTimetable() {
 refreshTimetable();
 drawTimeMarker();
 
-// Refresh every 10 minutes
+// Refresh timetable every 10 minutes
 setInterval(refreshTimetable, 600000);
+
+// Refresh marker every 2 minutes
+setInterval(drawTimeMarker, 120000);
 
 

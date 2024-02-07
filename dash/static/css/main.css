@@ -1,6 +1,7 @@
 /* Font Imports */
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 /* Universal Styling  */
 * {
@@ -78,6 +79,7 @@ section {
     width: 45px;
     text-align: right;
     border-right: 1px solid rgb(221, 221, 221);
+    z-index: 4;
 }
 
 .namecol {
@@ -94,13 +96,37 @@ section {
 }
 
 .hourcol {
-    height: 65px;
+    height: 60px;
     font-size: 16px;
     font-weight: 600;
     /* padding-top: 2px; */
     padding-right: 1px;
-    z-index: 5;
     position: relative;
+    /* z-index: 5; */
+}
+
+.hourcol.head2 { 
+    
+    line-height: 60px; /* vertically aligns 1 line of text */
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.head2 {
+    height: 60px;
+    background-color: rgb(143, 237, 174);
+    color: black;
+    z-index: 10;
+}
+
+.head2 > .ticktop {
+    border-bottom: 0px;
+}
+
+.head2 > .tickbtm {
+    height: 100%;
+    border-bottom: 2px solid rgb(60,60,60);
 }
 
 .ticks {
