@@ -10,25 +10,10 @@
 
 // Create the table in the RHSBox flex div.
 
-// writes a header cell for the table
-function writeHeaderCell(tr, name){
-    const td = tr.insertCell();
-    td.appendChild(document.createTextNode(name));
-    td.style.backgroundColor = "lightgrey";
-    td.style.textAlign = "center";
-    td.style.fontWeight = "bold";
-    td.style.border = "1px solid black";
-    td.style.padding = "8px";
-}
 
 
-// download json data from the API
-async function fetchTimetable() {
-    const events = await fetch("/api/cal").then(res => res.json()); // (res)sponse
-    console.log(events);
-  
-    return events;
-  }
+
+
 
 // refresh the timetable
 async function refreshTimetable() {
@@ -44,17 +29,30 @@ async function refreshTimetable() {
     // get the users from the API
     const users = await fetchTimetable();
 
+    // Remove headers
+    const headersElement = document.getElementById("headers");
+    while (headersElement.firstChild) {
+        headersElement.removeChild(headersElement.lastChild);
+    }
     
     // Remove events that already exist on the page if any exist,
-    // EXCLUDING the timecol, which acts as an offset
-    for (const previousEventElement of eventElementContainer.children) {
-        if (!previousEventElement.classList.contains("timecol")) {
-            previousEventElement.remove();
-        }
+    while (eventElementContainer.firstChild) {
+        eventElementContainer.removeChild(eventElementContainer.lastChild);
     }
 
+    // create timecol div
+    const timecolElement = document.createElement("div");
+    timecolElement.classList.add("timecol");
+    eventElementContainer.appendChild(timecolElement); 
+
+    // for (const previousEventElement of eventElementContainer.children) {
+    //     if (!previousEventElement.classList.contains("timecol")) {
+    //         previousEventElement.remove();
+    //     }
+    // }
+
     // figure out how tall each hour is
-    const height = document.getElementsByClassName("hourcol").item(0).clientHeight;
+    const height = getHeight();
 
     
     /* 
@@ -88,8 +86,7 @@ async function refreshTimetable() {
         eventElementContainer.appendChild(contentcolElement);
 
         // Add user's names to top.
-        // Get headers item
-        const headersElement = document.getElementById("headers");
+        
         const userLabel = document.createElement("div");
         userLabel.classList.add("namecol");
         userLabel.textContent = user.user;
@@ -125,6 +122,12 @@ async function refreshTimetable() {
 
             // Set the height of the event
             const duration = (end - start)/1000/3600;
+
+            // if duration less than 0.5, set to 0.5 hours.
+            if (duration < 0.5) {
+                duration = 0.5;
+            }
+
             eventbg.style.height = `${duration*height}px`;
 
             //* Decide colour for the event.
@@ -184,5 +187,68 @@ async function refreshTimetable() {
     }
 }
 
+
+// Draw a line across the whole screen representing the current time
+function drawTimeMarker(){
+    // get the calendar body container.
+    const calBodyContainer = document.getElementById("calbody");
+
+    // Remove the existing time marker
+    for (const childElement of calBodyContainer.children) {
+        if (childElement.id == "timeMarker") {
+        childElement.remove();
+        }
+    }
+
+    // Create a new time marker
+    const timeMarker = document.createElement("div");
+    timeMarker.id = "timeMarker";
+
+    // Get the current time
+    const currentTime = new Date();
+
+    height = getHeight();
+
+    // Calculate the offset of the time marker
+    //! HARD CODED 8AM START
+    // currentTime-calStart reports the time in milliseconds since the start of the day.
+    // convert to hours /1000/3600 then multiply by height.
+    const calStart = new Date().setHours(8,0,0,0);
+    const eventOffset = (currentTime - calStart)/1000/3600*height;
+
+    // Set the offset of the time marker
+    timeMarker.style.top = `${eventOffset}px`;
+
+    // Add a span inside the div
+    const timeMarkerEndCap = document.createElement("div");
+    // timeMarkerEndCap.textContent = "Now";
+    timeMarkerEndCap.classList.add("endCap");
+    timeMarker.appendChild(timeMarkerEndCap);
+
+    // Append the time marker to the timecol container
+    calBodyContainer.appendChild(timeMarker);
+}
+
+
+// Return the height of an hour
+function getHeight() {
+    return document.getElementsByClassName("hourcol").item(0).clientHeight;
+}
+
+// download json data from the API
+async function fetchTimetable() {
+    const events = await fetch("/api/cal").then(res => res.json()); // (res)sponse
+    console.log(events);
   
-  refreshTimetable();
+    return events;
+  }
+
+
+// On startup
+refreshTimetable();
+drawTimeMarker();
+
+// Refresh every 10 minutes
+setInterval(refreshTimetable, 600000);
+
+

@@ -1,10 +1,4 @@
-
-
-
-
 let JK_colours = {
-    // # "CIVIL 202": "rgb(248, 58, 34)",
-    // # "CIVIL 203": "rgb(22, 167, 101)",
     "CIVIL 202": "rgb(248, 58, 34)",
     "CIVIL 203": "#FCD581",
     "STRCTENG 200": "#EC265E",
