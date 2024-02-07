@@ -45,36 +45,9 @@ async function refreshTimetable() {
     timecolElement.classList.add("timecol");
     eventElementContainer.appendChild(timecolElement);
 
-    // for (const previousEventElement of eventElementContainer.children) {
-    //     if (!previousEventElement.classList.contains("timecol")) {
-    //         previousEventElement.remove();
-    //     }
-    // }
 
     // figure out how tall each hour is
     const height = getHeight();
-
-
-    /*
-    //* Create table
-    const tbl = document.createElement("table");
-    tbl.style.width = '100%';
-    tbl.setAttribute('border', '1');
-
-    // create header row
-    const tr = tbl.insertRow();
-    writeHeaderCell(tr, "Time");
-
-    // loop through users to create header row
-    for (const user of users) {
-        console.log(user.user); // prints name to console
-        writeHeaderCell(tr, user.user);
-    }
-
-    eventElementContainer.appendChild(tbl);
-
-    */
-
 
     // loop through users to create events/rows.
     for (const user of users) {
@@ -82,14 +55,23 @@ async function refreshTimetable() {
         const contentcolElement = document.createElement("div");
         contentcolElement.classList.add("contentcol");
 
+        // Everyone hardcoded to narrower col
+        if (user.user == "Everyone") {
+            contentcolElement.style.flex = "0.5";
+        }
+
         // append to eventElementContainer
         eventElementContainer.appendChild(contentcolElement);
 
         // Add user's names to top.
-
         const userLabel = document.createElement("div");
         userLabel.classList.add("namecol");
         userLabel.textContent = user.user.replace("_", " ");
+
+        // Everyone hardcoded to narrower col
+        if (user.user == "Everyone") {
+            userLabel.style.flex = "0.5";
+        }
 
         headersElement.appendChild(userLabel);
 
@@ -139,7 +121,7 @@ async function refreshTimetable() {
 
             // If the event is an all day event, add it to the header2 chip
             if (event.duration.includes("day")) {
-                console.log(event.duration);
+                // console.log(event.duration);
                 // Add a comma if there is already an event in the header2 chip
                 if (header2Chip.textContent.length != 0) {
                     header2Chip.textContent += ", ";
@@ -159,10 +141,10 @@ async function refreshTimetable() {
                 case "Jacob":
                     var colour_palette = JP_colours;
                     break;
-                case "Joshua AC":
+                case "Joshua_AC":
                     var colour_palette = JAC_colours;
                     break;
-                case "Joshua T":
+                case "Joshua_T":
                     var colour_palette = JT_colours;
                     break;
                 default:
@@ -260,7 +242,7 @@ function getHeight() {
 // download json data from the API
 async function fetchTimetable() {
     const events = await fetch("/api/cal").then(res => res.json()); // (res)sponse
-    console.log(events);
+    // console.log(events);
 
     return events;
   }
