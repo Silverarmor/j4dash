@@ -7,8 +7,6 @@ Dashboard for the J^4 flat.
 - Favicon
 -
 
-### ideas
+## Credit
 
-- scrape gcal with google cal API instead.
-
-https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table
+ - [@Excigma](https://github.com/Excigma) for constant support, rubber duckying, and JS & CSS mentoring.
