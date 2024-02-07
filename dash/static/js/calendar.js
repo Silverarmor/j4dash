@@ -3,9 +3,9 @@
 // for (const event of events) {
 //     const hours = timestamp of event - timestamp of start of day (might break on DST!!)
 //      const offset = height of one hour * hours
-   
-//    create the element and add offset 
-   
+
+//    create the element and add offset
+
 //    }
 
 // Create the table in the RHSBox flex div.
@@ -24,8 +24,8 @@ async function refreshTimetable() {
     const loadingIndicator = document.createElement("div");
     loadingIndicator.textContent = "Loading...";
     eventElementContainer.appendChild(loadingIndicator);
-    
-    
+
+
     // get the users from the API
     const users = await fetchTimetable();
 
@@ -34,7 +34,7 @@ async function refreshTimetable() {
     while (headersElement.firstChild) {
         headersElement.removeChild(headersElement.lastChild);
     }
-    
+
     // Remove events that already exist on the page if any exist,
     while (eventElementContainer.firstChild) {
         eventElementContainer.removeChild(eventElementContainer.lastChild);
@@ -43,7 +43,7 @@ async function refreshTimetable() {
     // create timecol div
     const timecolElement = document.createElement("div");
     timecolElement.classList.add("timecol");
-    eventElementContainer.appendChild(timecolElement); 
+    eventElementContainer.appendChild(timecolElement);
 
     // for (const previousEventElement of eventElementContainer.children) {
     //     if (!previousEventElement.classList.contains("timecol")) {
@@ -54,8 +54,8 @@ async function refreshTimetable() {
     // figure out how tall each hour is
     const height = getHeight();
 
-    
-    /* 
+
+    /*
     //* Create table
     const tbl = document.createElement("table");
     tbl.style.width = '100%';
@@ -64,7 +64,7 @@ async function refreshTimetable() {
     // create header row
     const tr = tbl.insertRow();
     writeHeaderCell(tr, "Time");
-  
+
     // loop through users to create header row
     for (const user of users) {
         console.log(user.user); // prints name to console
@@ -86,7 +86,7 @@ async function refreshTimetable() {
         eventElementContainer.appendChild(contentcolElement);
 
         // Add user's names to top.
-        
+
         const userLabel = document.createElement("div");
         userLabel.classList.add("namecol");
         userLabel.textContent = user.user.replace("_", " ");
@@ -98,7 +98,7 @@ async function refreshTimetable() {
         header2Chip.classList.add("head2content");
         header2Chip.id = user.user;
         contentcolElement.appendChild(header2Chip);
-        
+
 
         // loop through the events each user has.
         for (const event of user.events) {
@@ -108,16 +108,15 @@ async function refreshTimetable() {
             const eventChip = document.createElement("div");
             const eventbg = document.createElement("div");
             const eventContent = document.createElement("div");
-            
             eventChip.classList.add("chip");
             eventbg.classList.add("bgchip");
             eventContent.classList.add("chipcontent");
-            
+
             // Figure out what time the event starts and ends
             const start = new Date(event.start);
             const end = new Date(event.end);
 
-            
+
             //! HARD CODED 8AM START
             // time-calStart reports the time in milliseconds since the start of the day.
             // convert to hours /1000/3600 then multiply by height.
@@ -155,7 +154,7 @@ async function refreshTimetable() {
             //* Decide colour for the event.
             switch (user.user) {
                 case "Jayden":
-                    var colour_palette = JK_colours; 
+                    var colour_palette = JK_colours;
                     break;
                 case "Jacob":
                     var colour_palette = JP_colours;
@@ -169,7 +168,7 @@ async function refreshTimetable() {
                 default:
                     var colour_palette = {"default": "rgb(73, 134, 231)"};
             }
-            
+
             var colour = "blank";
 
             // console.log(colour_palette);
@@ -195,7 +194,7 @@ async function refreshTimetable() {
 
             // and set 'borders'
             // eventChip.style.outline = "1px solid black";
-            
+
             // Append background to chip
             eventChip.appendChild(eventbg);
 
@@ -262,7 +261,7 @@ function getHeight() {
 async function fetchTimetable() {
     const events = await fetch("/api/cal").then(res => res.json()); // (res)sponse
     console.log(events);
-  
+
     return events;
   }
 

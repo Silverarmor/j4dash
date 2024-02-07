@@ -47,7 +47,7 @@ def parse_singular_calendar(url: str) -> str:
         #     print(event['DESCRIPTION'])
         # print("\n")
         
-        # Run borderline checks for events during the day
+        # Run boundary checks for events during the day
         if hasattr(event['DTSTART'].dt, 'hour'):
 
             # continue if event starts before 8am and stops before 8am
@@ -68,6 +68,7 @@ def parse_singular_calendar(url: str) -> str:
 
 
         # Clean event summary by removing any text after a colon if present
+        # note we keep 1 word after the colon
         if ":" in event['SUMMARY']:
             event['SUMMARY'] = event['SUMMARY'].split(':')[0] + ': ' + event['SUMMARY'].split(':')[1].split()[0]
 
@@ -97,19 +98,20 @@ def parse_all_calendars():
     # init
     json_data = []
 
-    # loop through url dictionary
-    for name in calendar_links:
-        # print(name)
-        # print(calendar_links[name])
+    # loop through url dictionary for timetables
+    for name in timetable_links:
 
         # Construct each json
         user_json_data = {
             "user": name,
-            "events": parse_singular_calendar(calendar_links[name])
+            "events": parse_singular_calendar(timetable_links[name])
         }
+
 
         # Append to json list
         json_data.append(user_json_data)
+    
+    # loop through additional calendars.
 
     # Create into json format
     json_data = json.dumps(json_data)

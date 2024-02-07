@@ -25,9 +25,6 @@ def home():
     date = f"{day_of_week}, {day}{ordinal_suffix} {month_year}"
 
 
-
-
-
     return render_template("index.html", date=date)
 
 @app.route("/more")
