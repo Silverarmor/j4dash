@@ -45,14 +45,33 @@ def parse_singular_calendar(url: str) -> str:
         
         # if 'DESCRIPTION' in event:
         #     print(event['DESCRIPTION'])
+        # print("\n")
+        
+        # Run borderline checks for events during the day
+        if hasattr(event['DTSTART'].dt, 'hour'):
 
-        print("\n")
+            # continue if event starts before 8am and stops before 8am
+            if event['DTSTART'].dt.hour < 8 and event['DTEND'].dt.hour <= 8:
+                continue
+
+            # continue if event starts after 9pm and stops after 9pm
+            if event['DTSTART'].dt.hour > 21 and event['DTEND'].dt.hour > 21:
+                continue
+
+            # Set event end to 9pm if later
+            if event['DTEND'].dt.hour > 21 or (event['DTEND'].dt.hour == 21 and event['DTEND'].dt.minute > 0):
+                event['DTEND'].dt = event['DTEND'].dt.replace(hour=21, minute=0, second=0)
+
+            # If event starts before 8am but stops after 8:30am, set start to 8am
+            if event['DTSTART'].dt.hour < 8 and event['DTEND'].dt.hour >= 9:
+                event['DTSTART'].dt = event['DTSTART'].dt.replace(hour=8, minute=0, second=0)
+
 
         # Clean event summary by removing any text after a colon if present
         if ":" in event['SUMMARY']:
             event['SUMMARY'] = event['SUMMARY'].split(':')[0] + ': ' + event['SUMMARY'].split(':')[1].split()[0]
 
-
+        # Calculate duration of event
         duration = event['DTEND'].dt - event['DTSTART'].dt
 
         # prepare json data

@@ -93,6 +93,13 @@ async function refreshTimetable() {
 
         headersElement.appendChild(userLabel);
 
+        // Create header2 chips, for all day events
+        const header2Chip = document.createElement("div");
+        header2Chip.classList.add("head2content");
+        header2Chip.id = user.user;
+        contentcolElement.appendChild(header2Chip);
+        
+
         // loop through the events each user has.
         for (const event of user.events) {
             console.log(event.name, event.start, event.end, event.duration, event.description, event.location);
@@ -130,6 +137,20 @@ async function refreshTimetable() {
             }
 
             eventbg.style.height = `${duration*height}px`;
+
+            // If the event is an all day event, add it to the header2 chip
+            if (event.duration.includes("day")) {
+                console.log(event.duration);
+                // Add a comma if there is already an event in the header2 chip
+                if (header2Chip.textContent.length != 0) {
+                    header2Chip.textContent += ", ";
+                }
+                // Add the event to the header2 chip
+                header2Chip.textContent += event.name;
+
+                //! SKIP TO NEXT EVENT
+                continue;
+            }
 
             //* Decide colour for the event.
             switch (user.user) {
