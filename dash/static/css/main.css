@@ -137,6 +137,7 @@ section {
     padding-right: 2px;
     border: none;
     width: 100%;
+    word-wrap: break-word;
 }
 
 .ticks {
