@@ -30,5 +30,7 @@ def cal():
     return data
 
 
+# Run as flask app (locally only) for testing.
+# Production level runs gunicorn (WSGI server)
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

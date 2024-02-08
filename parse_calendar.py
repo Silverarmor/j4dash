@@ -14,6 +14,11 @@ import helper
 
 
 def download_calendar(url):
+    """
+    Downloads a calendar from the specified URL
+    Args: url (str): The URL of the calendar to download.
+    returns icalendar.Calendar object
+    """
     cal = icalendar.Calendar.from_ical(requests.get(url).text)
     
     return cal
@@ -21,10 +26,14 @@ def download_calendar(url):
 
 def get_events_today(cal) -> list:
     """
-    Get events for today from a calendar
-    """
+    Retrieves a list of events happening today from the given calendar.
 
-    # events = recurring_ical_events.of(cal).between(start_date, end_date)
+    Args:
+        cal (Calendar): The calendar object to retrieve events from.
+
+    Returns:
+        list: A list of events happening today.
+    """
 
     check_date = helper.decide_day_check()
 
@@ -37,6 +46,16 @@ def get_events_today(cal) -> list:
 
 
 def boundary_checks(event):
+    """
+    Perform boundary checks on the given event.
+
+    Args:
+        event (dict): The event to be checked.
+
+    Returns:
+        tuple: A tuple containing the modified event and a boolean indicating if the event is valid.
+    """
+
     valid = True
     if hasattr(event['DTSTART'].dt, 'hour'):
 
@@ -66,7 +85,7 @@ def check_empty(json_data):
     for user in json_data:
         if len(user["events"]) == 0:
             user["events"].append({
-                "name": "No events 😢",
+                "name": "No events",
                 "start": str(date.today()),
                 "end": str(date.today()+timedelta(1)),
                 "location": "",
@@ -134,6 +153,18 @@ def parse_single_timetable_calendar(url: str) -> str:
 
 
 def parse_combined_calendar(url: str, json_data: list) -> list:
+    """
+    Parses a combined calendar by downloading the calendar from the given URL,
+    extracting today's events, applying boundary checks, and organizing the events
+    based on the person associated with each event.
+
+    Args:
+        url (str): The URL of the calendar to download.
+        json_data (list): The JSON data containing the parsed events.
+
+    Returns:
+        list: The updated JSON data with the parsed events.
+    """
     
     cal = download_calendar(url)
 
