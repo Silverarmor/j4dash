@@ -10,6 +10,7 @@ import requests
 from datetime import date, timedelta, datetime
 import json
 from credentials import *
+import helper
 
 
 def download_calendar(url):
@@ -25,11 +26,7 @@ def get_events_today(cal) -> list:
 
     # events = recurring_ical_events.of(cal).between(start_date, end_date)
 
-    # If past 8:30pm, check tomorrow's events
-    if datetime.now().hour >= 20 and datetime.now().minute >= 30:
-        check_date = date.today() + timedelta(1)
-    else:
-        check_date = date.today()
+    check_date = helper.decide_day_check()
 
     events_today = recurring_ical_events.of(cal).at(check_date)
     
