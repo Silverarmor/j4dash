@@ -32,7 +32,7 @@ function updateProgressBar() {
   
   // Calculate percent of days gone
   const percentage = (ms / (1000 * 60 * 60 * 24* 365)) * 100;
-  console.log(percentage);
+  // console.log(percentage);
 
   // Update the progress bar with the percentage
   document.getElementById("progress-box").style.width = `${percentage}%`;

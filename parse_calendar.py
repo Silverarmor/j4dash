@@ -18,6 +18,21 @@ def download_calendar(url):
     return cal
 
 
+def get_events_today(cal) -> list:
+    """
+    Get events for today from a calendar
+    """
+
+    # events = recurring_ical_events.of(cal).between(start_date, end_date)
+
+    events_today = recurring_ical_events.of(cal).at(date.today())
+    
+    if testing_date != False:
+        events_today = recurring_ical_events.of(cal).at(testing_date)
+
+    return events_today
+
+
 def boundary_checks(event):
     valid = True
     if hasattr(event['DTSTART'].dt, 'hour'):
@@ -67,12 +82,7 @@ def parse_single_timetable_calendar(url: str) -> str:
     """
     cal = download_calendar(url)
 
-    # events = recurring_ical_events.of(cal).between(start_date, end_date)
-
-    events_today = recurring_ical_events.of(cal).at(date.today())
-
-    if testing_date != False:
-        events_today = recurring_ical_events.of(cal).at(testing_date)
+    events_today = get_events_today(cal)
 
     # Initialise empty json string
     json_user_list = []
@@ -124,10 +134,7 @@ def parse_combined_calendar(url: str, json_data: list) -> list:
     
     cal = download_calendar(url)
 
-    events_today = recurring_ical_events.of(cal).at(date.today())
-    
-    if testing_date != False:
-        events_today = recurring_ical_events.of(cal).at(testing_date)
+    events_today = get_events_today(cal)
 
     # Loop through today's events
     for event in events_today:
@@ -199,15 +206,77 @@ def parse_combined_calendar(url: str, json_data: list) -> list:
                 json_data[4]
             except IndexError:
                 json_data.append({"user": "Everyone", "events": []})
-        # print(event_data)
-        # Append event to json data
-        json_data[user_index]["events"].append(event_data)
 
+        # Append event to json data
+        for user_data in json_data:
+            if user_data["user"] == user:
+                user_data["events"].append(event_data)
     # Return updated json data.
     return json_data
 
 
+def parse_personal_calendars(json_data: list) -> list:
+    """
+    Parse personal calendars into json format
+    """
+
+    for url in personal_cals:
+        cal = download_calendar(url)
+
+        events_today = get_events_today(cal)
+
+        
+        # Loop through today's events
+        for event in events_today:
+
+            # Verify valid event, and apply boundaries
+            event, valid = boundary_checks(event)
+
+            # If event is invalid, i.e. out of bounds, skip to next event
+            if valid == False:
+                continue
+
+            # Calculate duration of event
+            duration = event['DTEND'].dt - event['DTSTART'].dt
+
+            # Determine whose event this is
+            user = personal_cals[url]
+
+            # Check for EVERYONE events. If event summary ends in "EVERYONE"
+            # then set user to everyone
+            if event['SUMMARY'].endswith("EVERYONE"):
+                user = "Everyone"
+
+                # Remove "- EVERYONE" from end of event summary
+                # and remove leading/trailing whitespace
+                event['SUMMARY'] = event['SUMMARY'].replace("- EVERYONE", "").strip()
+                
+                # If "everyone" element doesn't exist, create it
+                try:
+                    json_data[4]
+                except IndexError:
+                    json_data.append({"user": "Everyone", "events": []})
+
+            # prepare json data
+            event_data = {
+                "name": str(event['SUMMARY']),
+                "start": str(event['DTSTART'].dt),
+                "end": str(event['DTEND'].dt),
+                "location": str(event['LOCATION']) if 'LOCATION' in event else "",
+                "description": str(event['DESCRIPTION']) if 'DESCRIPTION' in event else "",
+                "duration": str(duration)
+            }
+
+            # Append event to json data
+            for user_data in json_data:
+                if user_data["user"] == user:
+                    user_data["events"].append(event_data)
+
+    return json_data
+
+
 def parse_all_calendars():
+
     """
     Iterate through all calendars available in credentials.py and parse them into json format
     Example format in example.json
@@ -232,6 +301,8 @@ def parse_all_calendars():
     # Parse combined calendar and update json_data
     json_data = parse_combined_calendar(combined_cal, json_data)
 
+    # Parse personal calendars and update json_data
+    json_data = parse_personal_calendars(json_data)
 
 
     # Check if events are empty
