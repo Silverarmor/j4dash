@@ -1,0 +1,179 @@
+[
+    {
+      "user": "Jayden",
+      "events": [
+        {
+          "name": "CIVIL 202",
+          "start": "2024-02-29 14:00:00+13:00",
+          "end": "2024-02-29 15:00:00+13:00",
+          "location": "201-393",
+          "description": "CIVIL 202 Fluid Mechanics and Pipe Flow",
+          "duration": "1:00:00"
+        },
+        {
+          "name": "ENGSCI 211",
+          "start": "2024-02-29 17:00:00+13:00",
+          "end": "2024-02-29 18:00:00+13:00",
+          "location": "260-098",
+          "description": "ENGSCI 211 Mathematical Modelling 2",
+          "duration": "1:00:00"
+        },
+        {
+          "name": "CIVIL 203",
+          "start": "2024-02-29 13:00:00+13:00",
+          "end": "2024-02-29 14:00:00+13:00",
+          "location": "401-401",
+          "description": "CIVIL 203 Transport Design and Geomatics",
+          "duration": "1:00:00"
+        },
+        {
+          "name": "2DayEvent",
+          "start": "2024-02-29",
+          "end": "2024-03-02",
+          "location": "",
+          "description": "",
+          "duration": "2 days, 0:00:00"
+        },
+        {
+          "name": "1Day Event Spaced",
+          "start": "2024-02-29",
+          "end": "2024-03-01",
+          "location": "",
+          "description": "",
+          "duration": "1 day, 0:00:00"
+        },
+        {
+          "name": "Test Event",
+          "start": "2024-02-29 16:00:00+13:00",
+          "end": "2024-02-29 16:30:00+13:00",
+          "location": "",
+          "description": "",
+          "duration": "0:30:00"
+        }
+      ]
+    },
+    {
+      "user": "Joshua_T",
+      "events": [
+        {
+          "name": "LAW 211A",
+          "start": "2024-02-29 10:00:00+13:00",
+          "end": "2024-02-29 12:00:00+13:00",
+          "location": "260-092",
+          "description": "LAW 211A Public Law",
+          "duration": "2:00:00"
+        },
+        {
+          "name": "LAW 201A WRK",
+          "start": "2024-02-29 09:00:00+13:00",
+          "end": "2024-02-29 10:00:00+13:00",
+          "location": "801-316",
+          "description": "LAW 201A Criminal Law",
+          "duration": "1:00:00"
+        },
+        {
+          "name": "COMPSCI 110",
+          "start": "2024-02-29 15:00:00+13:00",
+          "end": "2024-02-29 16:00:00+13:00",
+          "location": "303-G20",
+          "description": "COMPSCI 110 Introduction to Computer Syste",
+          "duration": "1:00:00"
+        },
+        {
+          "name": "Combined",
+          "start": "2024-02-29 13:00:00+13:00",
+          "end": "2024-02-29 15:00:00+13:00",
+          "location": "",
+          "description": "",
+          "duration": "2:00:00"
+        }
+      ]
+    },
+    {
+      "user": "Jacob",
+      "events": [
+        {
+          "name": "MSS: Lecture",
+          "start": "2024-02-29 12:00:00+13:00",
+          "end": "2024-02-29 13:00:00+13:00",
+          "location": "",
+          "description": "",
+          "duration": "1:00:00"
+        },
+        {
+          "name": "MSS: Lecture",
+          "start": "2024-02-29 08:00:00+13:00",
+          "end": "2024-02-29 09:00:00+13:00",
+          "location": "",
+          "description": "",
+          "duration": "1:00:00"
+        },
+        {
+          "name": "POM: Lecture",
+          "start": "2024-02-29 11:00:00+13:00",
+          "end": "2024-02-29 12:00:00+13:00",
+          "location": "",
+          "description": "",
+          "duration": "1:00:00"
+        },
+        {
+          "name": "MSS: Lecture",
+          "start": "2024-02-29 09:00:00+13:00",
+          "end": "2024-02-29 10:00:00+13:00",
+          "location": "",
+          "description": "",
+          "duration": "1:00:00"
+        },
+        {
+          "name": "Evening Event",
+          "start": "2024-02-29 20:00:00+13:00",
+          "end": "2024-02-29 21:00:00+13:00",
+          "location": "",
+          "description": "",
+          "duration": "1:00:00"
+        },
+        {
+          "name": "Combined",
+          "start": "2024-02-29 16:30:00+13:00",
+          "end": "2024-02-29 17:45:00+13:00",
+          "location": "",
+          "description": "",
+          "duration": "1:15:00"
+        }
+      ]
+    },
+    {
+      "user": "Joshua_AC",
+      "events": [
+        {
+          "name": "Example101",
+          "start": "2024-02-29 11:00:00+13:00",
+          "end": "2024-02-29 14:45:00+13:00",
+          "location": "CARLAW",
+          "description": "",
+          "duration": "3:45:00"
+        },
+        {
+          "name": "Another1DayEventLongName",
+          "start": "2024-02-29",
+          "end": "2024-03-01",
+          "location": "",
+          "description": "",
+          "duration": "1 day, 0:00:00"
+        }
+      ]
+    },
+    {
+      "user": "Everyone",
+      "events": [
+        {
+          "name": "Dinner!",
+          "start": "2024-02-29 18:00:00+13:00",
+          "end": "2024-02-29 18:30:00+13:00",
+          "location": "",
+          "description": "",
+          "duration": "0:30:00"
+        }
+      ]
+    }
+  ]

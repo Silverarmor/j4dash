@@ -1,0 +1,81 @@
+[
+    {
+      "user": "Jayden",
+      "events": [
+        {
+          "name": "CIVIL 202",
+          "start": "2024-02-29 14:00:00+13:00",
+          "end": "2024-02-29 15:00:00+13:00",
+          "location": "201-393",
+          "description": "CIVIL 202 Fluid Mechanics and Pipe Flow",
+          "duration": "1:00:00"
+        },
+        {
+          "name": "ENGSCI 211",
+          "start": "2024-02-29 17:00:00+13:00",
+          "end": "2024-02-29 18:00:00+13:00",
+          "location": "260-098",
+          "description": "ENGSCI 211 Mathematical Modelling 2",
+          "duration": "1:00:00"
+        },
+        {
+          "name": "CIVIL 203",
+          "start": "2024-02-29 13:00:00+13:00",
+          "end": "2024-02-29 14:00:00+13:00",
+          "location": "401-401",
+          "description": "CIVIL 203 Transport Design and Geomatics",
+          "duration": "1:00:00"
+        }
+      ]
+    },
+    {
+      "user": "Jacob",
+      "events": [
+        {
+          "name": "MSS: Lecture (505-011) Forearm (Flexor Compartment) and Wrist",
+          "start": "2024-02-29 12:00:00+13:00",
+          "end": "2024-02-29 13:00:00+13:00",
+          "location": "",
+          "description": "",
+          "duration": "1:00:00"
+        },
+        {
+          "name": "MSS: Lecture (505-011) Arm & Cubital Fossa",
+          "start": "2024-02-29 08:00:00+13:00",
+          "end": "2024-02-29 09:00:00+13:00",
+          "location": "",
+          "description": "",
+          "duration": "1:00:00"
+        },
+        {
+          "name": "POM: Lecture (505-011) Introduction to Microbes, Immunity and Disease",
+          "start": "2024-02-29 11:00:00+13:00",
+          "end": "2024-02-29 12:00:00+13:00",
+          "location": "",
+          "description": "",
+          "duration": "1:00:00"
+        },
+        {
+          "name": "MSS: Lecture (505-011) Shoulder and Elbow",
+          "start": "2024-02-29 09:00:00+13:00",
+          "end": "2024-02-29 10:00:00+13:00",
+          "location": "",
+          "description": "",
+          "duration": "1:00:00"
+        }
+      ]
+    },
+    {
+      "user": "Joshua AC",
+      "events": [
+        {
+          "name": "Example101",
+          "start": "2024-02-29 11:00:00+13:00",
+          "end": "2024-02-29 12:00:00+13:00",
+          "location": "CARLAW",
+          "description": "",
+          "duration": "1:00:00"
+        }
+      ]
+    }
+  ]

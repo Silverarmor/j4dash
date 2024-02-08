@@ -3,6 +3,8 @@ CLIENT_SECRET.*
 credentials.*
 service_account.*
 
+# GCloud
+.gcloudignore
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

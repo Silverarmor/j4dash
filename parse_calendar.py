@@ -80,7 +80,7 @@ def parse_single_timetable_calendar(url: str) -> str:
     for event in events_today:
         # print(event)
 
-        print(event['SUMMARY'])
+        # print(event['SUMMARY'])
         # print(event['DTSTART'].dt)
         # print(event['DTEND'].dt)
 
@@ -131,7 +131,7 @@ def parse_combined_calendar(url: str, json_data: list) -> list:
 
     # Loop through today's events
     for event in events_today:
-        print(event['SUMMARY'])
+        # print(event['SUMMARY'])
 
         # Verify valid event, and apply boundaries
         event, valid = boundary_checks(event)
@@ -199,7 +199,7 @@ def parse_combined_calendar(url: str, json_data: list) -> list:
                 json_data[4]
             except IndexError:
                 json_data.append({"user": "Everyone", "events": []})
-        
+        # print(event_data)
         # Append event to json data
         json_data[user_index]["events"].append(event_data)
 
@@ -228,7 +228,7 @@ def parse_all_calendars():
         json_data.append(user_json_data)
     
     # loop through additional calendars.
-        
+
     # Parse combined calendar and update json_data
     json_data = parse_combined_calendar(combined_cal, json_data)
 
@@ -240,7 +240,7 @@ def parse_all_calendars():
     # Create into json format
     json_data = json.dumps(json_data)
     
-    print(json_data)
+    # print(json_data)
 
     return json_data
 

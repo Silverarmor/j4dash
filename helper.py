@@ -23,7 +23,7 @@ def getQuote() -> tuple[str, str]:
     # Get quote
     response = requests.get(credentials.quote_url)
     data = response.json()
-    print(data)
+    # print(data)
     quote = data[0]["q"]
     author = data[0]["a"]
 

@@ -241,6 +241,7 @@ function getHeight() {
 
 // download json data from the API
 async function fetchTimetable() {
+    console.log("Fetching events")
     const events = await fetch("/api/cal").then(res => res.json()); // (res)sponse
     // console.log(events);
 
