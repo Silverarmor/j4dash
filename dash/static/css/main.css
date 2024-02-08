@@ -22,34 +22,58 @@ body {
     overflow: hidden;
     overflow-x: hidden;
 
+    /* Fill 95% of page excl footer/progress bar */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    /* background-image: url("../images/backgroundimg1.jpg");
+    background-size: cover;
+    background-repeat: no-repeat; */
+
+    /* background-color: #FA8BFF;
+    background-image: linear-gradient(64deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%); */
+    
+    background: rgb(43,210,255);
+    background: linear-gradient(64deg, rgba(43,210,255,1) 0%, rgba(141,208,177,1) 21%, rgba(226,137,148,1) 48%, rgba(86,193,227,1) 69%, rgba(0,146,255,1) 100%);
+
+
   }
 
 section {
     display: flex;
 }
 
+/* LHS STYLING */
 .LHSBox {
     flex: 4;
-}
-
-#RHSCalBox {
-    flex: 4;
-    /* margin: 100px; */
-    padding: 2px;
-    /* border: 100px; */
 }
 
 .date {
     font-size: 50px;
     color: black;
-    background-color: #666;
-    padding: 30px;
+    /* background-color: #666; */
+    padding-top: 30px;
+    text-align: center;
 }
 
-/* id clock since js powered. */
 #clock {
-    font-size: 75px;
-    font-family: "Helvetica Neue", Helvetica;
+    font-size: 80px;
+    /* font-family: "Helvetica Neue", Helvetica; */
+    color: white;
+    /* padding-left: 20px; */
+    text-align: center;
+    font-weight: bold;
+}
+
+
+
+/* RHS STYLING */
+#RHSCalBox {
+    flex: 4;
+    /* margin: 100px; */
+    padding: 2px;
+    /* border: 100px; */
 }
 
 .calheader {
@@ -237,23 +261,52 @@ section {
     
 }
 
+/*
 .bgchipA {
-    /** EVENT HEIGHT/LENGTH */
+    
+    EVENT HEIGHT/LENGTH 
+
     height: 65px;
 
-    /* Background */
+    Background
     background-color: rgb(73, 134, 231);
     border-color: rgb(73, 134, 231);
     background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
     background-size: 20px 20px;
-    opacity: 0.4;
+    opacity: 0.6;
 
-}
+}*/
 
 .bgchip {
     background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
     background-size: 20px 20px;
-    opacity: 0.4;
+    opacity: 0.7;
 }
 
 
+
+
+/* PROGRESS BAR */
+
+
+#progress-bar {
+    bottom: 0;
+    position: fixed;
+    border-top: 2px solid gray;
+    height: 3.5vh;
+    margin-top: auto;
+    width: 100%;
+    /* background:  */
+
+    /* z-index */
+}
+
+#progress-box {
+    /* width: 20%; */
+    height: 100%;
+    /* background-color: #4CAF50; */
+    background-color: green;
+    text-align: center;
+    line-height: 3.5vh;
+    font-weight: 800;
+}

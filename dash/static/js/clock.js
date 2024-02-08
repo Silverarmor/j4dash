@@ -20,8 +20,35 @@ function updateClock() {
   clockElement.textContent = timeString;
 }
 
-// Update the clock immediately
+// Function to update the progress bar
+function updateProgressBar() {
+  // Get the current time and year in milliseconds
+  const currentTime = new Date();
+  const thisYear = currentTime.getFullYear();
+
+  const ms = currentTime.getTime() - new Date(thisYear, 0, 1).getTime();
+
+
+  
+  // Calculate percent of days gone
+  const percentage = (ms / (1000 * 60 * 60 * 24* 365)) * 100;
+  console.log(percentage);
+
+  // Update the progress bar with the percentage
+  document.getElementById("progress-box").style.width = `${percentage}%`;
+
+  // Write percentage rounded to 1dp
+  document.getElementById("progress-box").textContent = `${percentage.toFixed(1)}%`;
+
+}
+
+// Refresh immediately
 updateClock();
+updateProgressBar();
+
 
 // Update the clock every second
 setInterval(updateClock, 1000);
+
+// Update progress bar every hour
+setInterval(updateProgressBar, 3600000);
