@@ -7,7 +7,7 @@ This file is responsible for parsing the calendar data from the icalendar format
 import icalendar
 import recurring_ical_events
 import requests
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 import json
 from credentials import *
 
@@ -25,7 +25,13 @@ def get_events_today(cal) -> list:
 
     # events = recurring_ical_events.of(cal).between(start_date, end_date)
 
-    events_today = recurring_ical_events.of(cal).at(date.today())
+    # If past 8:30pm, check tomorrow's events
+    if datetime.now().hour >= 20 and datetime.now().minute >= 30:
+        check_date = date.today() + timedelta(1)
+    else:
+        check_date = date.today()
+
+    events_today = recurring_ical_events.of(cal).at(check_date)
     
     if testing_date != False:
         events_today = recurring_ical_events.of(cal).at(testing_date)
@@ -63,7 +69,7 @@ def check_empty(json_data):
     for user in json_data:
         if len(user["events"]) == 0:
             user["events"].append({
-                "name": "⠀No events 😢",
+                "name": "No events 😢",
                 "start": str(date.today()),
                 "end": str(date.today()+timedelta(1)),
                 "location": "",
@@ -225,7 +231,7 @@ def parse_personal_calendars(json_data: list) -> list:
 
         events_today = get_events_today(cal)
 
-        
+
         # Loop through today's events
         for event in events_today:
 

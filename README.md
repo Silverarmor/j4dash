@@ -12,11 +12,11 @@ Ensure colour JavaScript file is also completed.
 ## TODO
 
 - Favicon
-- at 9pm, show tmrws calendar?
+- at 9pm, show tmrws calendar? DONE
 - dark mode
 - gradient background, or image like Chromecasts? from unsplash?
 - Weather!
-- progress bar at bottom
+- progress bar at bottom DONE
 
 ## Credit
 
