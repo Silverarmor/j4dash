@@ -223,6 +223,11 @@ function drawTimeMarker(){
     // Set the offset of the time marker
     timeMarker.style.top = `${eventOffset}px`;
 
+    // If offset is less than height, don't show.
+    if (eventOffset < height) {
+        return;
+    }
+
     // Add a span inside the div
     const timeMarkerEndCap = document.createElement("div");
     // timeMarkerEndCap.textContent = "Now";

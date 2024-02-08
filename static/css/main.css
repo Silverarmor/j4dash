@@ -5,6 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
 
 
+
 /* Universal Styling  */
 * {
     margin: 0;
@@ -22,7 +23,7 @@ body {
     /* prevent scrolling, i.e. dashboard */
     height: 100%;
     overflow: hidden;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
 
     /* Fill 95% of page excl footer/progress bar */
     display: flex;
@@ -44,6 +45,13 @@ body {
 
 section {
     display: flex;
+}
+
+/* Responsive */
+/* If screen device and less than 500px wide, allow wrapping and scrolling */
+@media screen and (max-width:500px) {
+    section { flex-wrap: wrap;  }
+    body {overflow: visible;}
 }
 
 /* LHS STYLING */
