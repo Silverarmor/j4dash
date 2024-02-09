@@ -6,9 +6,9 @@ import credentials
 # Set timezone for all datetime.now() requests
 tz = pytz.timezone('Pacific/Auckland')
 
-def getDate() -> str:
+def getDateReadable() -> str:
     """
-    Get the current date in the format Monday, 3rd January 2023.
+    Get the current date in the format Monday, 3rd January 2023. 
 
     Returns:
         str: The formatted date string.
@@ -27,6 +27,18 @@ def getDate() -> str:
 
     return date
 
+
+def getDateToday() -> date:
+    """
+    Get the current date. in correct timezone.
+    Format as a datetime.date object.
+
+    Returns:
+        date: The current date.
+    """
+    return datetime.now(tz).date()
+
+
 def getQuote() -> tuple[str, str]:
     """
     Retrieves a random quote from an API.
@@ -42,15 +54,17 @@ def getQuote() -> tuple[str, str]:
 
     return quote, author
 
-def decide_day_check():
+def decide_day_check() -> date:
     """
     Helper function that decides what date to check for events.
     """
 
+    # Get today's date
+    check_date = datetime.now(tz).date()
+
     # If past 8pm, check tomorrow's events
     if datetime.now(tz).hour >= 20:
-        check_date = date.today() + timedelta(1)
-    else:
-        check_date = date.today()
+        check_date += timedelta(1)
+
 
     return check_date

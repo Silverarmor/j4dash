@@ -6,11 +6,15 @@ This file is responsible for parsing the calendar data from the icalendar format
 """
 import icalendar
 import recurring_ical_events
+from datetime import timedelta
+
 import requests
-from datetime import date, timedelta, datetime
 import json
+
 from credentials import *
 import helper
+
+
 
 
 def download_calendar(url):
@@ -82,12 +86,15 @@ def check_empty(json_data):
     """
     If a user has no events, append a "No events" event to their list
     """
+
+    today = helper.getDateToday()
+
     for user in json_data:
         if len(user["events"]) == 0:
             user["events"].append({
                 "name": "No events",
-                "start": str(date.today()),
-                "end": str(date.today()+timedelta(1)),
+                "start": str(today),
+                "end": str(today+timedelta(1)),
                 "location": "",
                 "description": "",
                 "duration": "1 day, 0:00:00"

@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    date = helper.getDate()
+    date = helper.getDateReadable()
 
     quote, author = helper.getQuote()
 
