@@ -1,22 +1,11 @@
 
-// remove all the existing events if there are any (if you are reloading the calender, say every 5 mins by calling this code, you want to remove the previous events)
-// for (const event of events) {
-//     const hours = timestamp of event - timestamp of start of day (might break on DST!!)
-//      const offset = height of one hour * hours
+/*
+Refresh the calendar with the latest data from the API.
+Includes headers and events.
+*/ 
+async function refreshCalendar() {
 
-//    create the element and add offset
-
-//    }
-
-// Create the table in the RHSBox flex div.
-
-
-
-
-
-
-// refresh the timetable
-async function refreshTimetable() {
+    
     // get the calcontent container.
     const eventElementContainer = document.getElementById("calcontent");
 
@@ -84,7 +73,7 @@ async function refreshTimetable() {
 
         // loop through the events each user has.
         for (const event of user.events) {
-            console.log(event.name, event.start, event.end, event.duration, event.description, event.location);
+            // console.log(event.name, event.start, event.end, event.duration, event.description, event.location);
 
             // create an element (chip) for the event
             const eventChip = document.createElement("div");
@@ -245,7 +234,10 @@ function drawTimeMarker(){
 }
 
 
-// Return the height of an hour
+/* 
+    This function returns the height of an hour in the calendar.
+    This is used to calculate the offset of an event.
+*/ 
 function getHeight() {
     return document.getElementsByClassName("hourcol").item(0).clientHeight;
 }
@@ -261,13 +253,11 @@ async function fetchTimetable() {
 
 
 // On startup
-refreshTimetable();
+refreshCalendar();
 drawTimeMarker();
 
 // Refresh timetable every 10 minutes
-setInterval(refreshTimetable, 600000);
+setInterval(refreshCalendar, 600000);
 
 // Refresh marker every 2 minutes
 setInterval(drawTimeMarker, 120000);
-
-
