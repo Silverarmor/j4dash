@@ -178,6 +178,9 @@ async function refreshCalendar() {
             contentcolElement.appendChild(eventChip);
         }
     }
+
+    console.log("Calendar fully rendered")
+
 }
 
 
