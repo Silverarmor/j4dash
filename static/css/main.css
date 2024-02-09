@@ -36,13 +36,13 @@ body {
 
     /* background-color: #FA8BFF;
     background-image: linear-gradient(64deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%); */
-    
+
     /* background: rgb(43,210,255);
     background: linear-gradient(64deg, rgba(43,210,255,1) 0%, rgba(141,208,177,1) 21%, rgba(226,137,148,1) 48%, rgba(86,193,227,1) 69%, rgba(0,146,255,1) 100%); */
 
     background-color: #FFFFFF;
     background-image: linear-gradient(240deg, #ffb3b3 0%, #98adfc 50%, #ff5e64 100%);
-    
+
 
   }
 
@@ -165,8 +165,8 @@ section {
 }
 
 /* Not a typo for head2 to be in the class name */
-.hourcolhead2 { 
-    
+.hourcolhead2 {
+
     line-height: 60px; /* vertically aligns 1 line of text */
     font-family: "Roboto", sans-serif;
     font-size: 18px;
@@ -294,16 +294,16 @@ section {
     /** DISTANCE FROM TOP */
     top: 130px;
     /* position: relative; */
-    
+
     /* CAN ADD BORDER */
     /* border-left: 4px solid;  */
-    
+
 }
 
 /*
 .bgchipA {
-    
-    EVENT HEIGHT/LENGTH 
+
+    EVENT HEIGHT/LENGTH
 
     height: 65px;
 

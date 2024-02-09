@@ -33,7 +33,7 @@ let JAC_colours = {
 
     "POM: Lecture": "#4BAA74",  // jade
     "PCS1: Lecture": "#83CFD8", // light blue
-    "MSS: Lecture": "#87D4C3", // light blue/green 
+    "MSS: Lecture": "#87D4C3", // light blue/green
     "POM Tbl": "#065143", // green
     "PCS SGA": "#3BADBA",  //bluey moonstone
     "MSS Tbl": "#41B49B",  // idk

@@ -2,10 +2,10 @@
 /*
 Refresh the calendar with the latest data from the API.
 Includes headers and events.
-*/ 
+*/
 async function refreshCalendar() {
 
-    
+
     // get the calcontent container.
     const eventElementContainer = document.getElementById("calcontent");
 
@@ -234,10 +234,10 @@ function drawTimeMarker(){
 }
 
 
-/* 
+/*
     This function returns the height of an hour in the calendar.
     This is used to calculate the offset of an event.
-*/ 
+*/
 function getHeight() {
     return document.getElementsByClassName("hourcol").item(0).clientHeight;
 }

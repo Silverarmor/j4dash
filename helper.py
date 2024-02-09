@@ -8,7 +8,7 @@ tz = pytz.timezone('Pacific/Auckland')
 
 def getDateReadable() -> str:
     """
-    Get the current date in the format Monday, 3rd January 2023. 
+    Get the current date in the format Monday, 3rd January 2023.
 
     Returns:
         str: The formatted date string.
