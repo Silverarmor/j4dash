@@ -57,7 +57,7 @@ async function refreshTimetable() {
 
         // Everyone hardcoded to narrower col CONTENT COLUMN
         if (user.user == "Everyone") {
-            contentcolElement.style.flex = "0.5";
+            contentcolElement.style.flex = "0.6";
         }
 
         // append to eventElementContainer
@@ -70,7 +70,7 @@ async function refreshTimetable() {
 
         // Everyone hardcoded to narrower col, USER LABEL
         if (user.user == "Everyone") {
-            userLabel.style.flex = "0.5";
+            userLabel.style.flex = "0.6";
         }
 
         headersElement.appendChild(userLabel);
