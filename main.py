@@ -23,9 +23,10 @@ def more():
 @app.route("/api/cal")
 def cal():
     return parse_calendar.parse_all_calendars()
+
     #! TESTING LINE
     import json
-    with open("dash/example.json") as file:
+    with open("example.json") as file:
         data = json.load(file)
     return data
 
