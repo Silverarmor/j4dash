@@ -9,6 +9,10 @@ Duplicate `example_credentials.py` and rename to `credentials.py`. Fill out fiel
 
 Ensure colour JavaScript file is also completed.
 
+## Publish website on Google App Engine
+
+Once setup, simply run `gcloud app deploy` in the root directory and the website will publish!
+
 ## TODO
 
 - Favicon

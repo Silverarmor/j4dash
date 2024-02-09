@@ -55,7 +55,7 @@ async function refreshTimetable() {
         const contentcolElement = document.createElement("div");
         contentcolElement.classList.add("contentcol");
 
-        // Everyone hardcoded to narrower col
+        // Everyone hardcoded to narrower col CONTENT COLUMN
         if (user.user == "Everyone") {
             contentcolElement.style.flex = "0.5";
         }
@@ -68,7 +68,7 @@ async function refreshTimetable() {
         userLabel.classList.add("namecol");
         userLabel.textContent = user.user.replace("_", " ");
 
-        // Everyone hardcoded to narrower col
+        // Everyone hardcoded to narrower col, USER LABEL
         if (user.user == "Everyone") {
             userLabel.style.flex = "0.5";
         }
@@ -166,6 +166,7 @@ async function refreshTimetable() {
             }
 
             // console.log(colour);
+            // console.log(colour_palette)
 
             // Set the background color of event
             eventbg.style.backgroundColor = colour;
@@ -211,6 +212,11 @@ function drawTimeMarker(){
     const currentTime = new Date();
 
     height = getHeight();
+
+    // If past 8pm, don't show the time marker
+    if (currentTime.getHours() >= 20){
+        return;
+    }
 
     // Calculate the offset of the time marker
     //! HARD CODED 8AM START

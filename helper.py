@@ -47,8 +47,8 @@ def decide_day_check():
     Helper function that decides what date to check for events.
     """
 
-    # If past 8:30pm, check tomorrow's events
-    if datetime.now(tz).hour >= 20 and datetime.now(tz).minute >= 30:
+    # If past 8pm, check tomorrow's events
+    if datetime.now(tz).hour >= 20:
         check_date = date.today() + timedelta(1)
     else:
         check_date = date.today()
