@@ -190,7 +190,7 @@ def parse_combined_calendar(url: str, json_data: list) -> list:
 
         # Determine whose event this is
         # Loop through initials dictionary, checking the start of the event summary
-        user = "everyone"
+        user = "Everyone"
         for inits in initials:
             if event['SUMMARY'].startswith(inits):
                 user = initials[inits]
@@ -206,7 +206,7 @@ def parse_combined_calendar(url: str, json_data: list) -> list:
                 user_index = 2
             case "Joshua_AC":
                 user_index = 3
-            case "everyone":
+            case "Everyone":
                 user_index = 4
             # NOTE if event is not linked to a person, new column is created.
 
