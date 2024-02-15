@@ -15,12 +15,16 @@ Once setup, simply run `gcloud app deploy` in the root directory and the website
 
 ## TODO
 
-- Favicon
+- Favicon DONE
 - at 9pm, show tmrws calendar? DONE
 - dark mode
 - gradient background, or image like Chromecasts? from unsplash?
-- Weather!
+- Weather from open weather API.
 - progress bar at bottom DONE
+- Fix Date to change at midnight (JS, not PY)
+- show menu plan
+- chores?
+- who's cooking?
 
 ## Credit
 
