@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 import parse_calendar
+import parse_menu
 import helper
 
 
@@ -27,6 +28,16 @@ def cal():
     #! TESTING LINE
     import json
     with open("example.json") as file:
+        data = json.load(file)
+    return data
+
+@app.route("/api/menu")
+def menu():
+    return parse_menu.main()
+
+    #! TESTING LINE
+    import json
+    with open("examplemenu.json") as file:
         data = json.load(file)
     return data
 
