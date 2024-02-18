@@ -20,6 +20,11 @@ async function refreshMenu() {
     // get the menucontent container.
     const menuElementContainer = document.getElementById("foodplan");
 
+    // Remove events that already exist on the page if any exist,
+    while (menuElementContainer.firstChild) {
+        menuElementContainer.removeChild(menuElementContainer.lastChild);
+    }
+
     // Create div for person cooking
     const personCooking = document.createElement("div");
     personCooking.classList.add("personcooking");
