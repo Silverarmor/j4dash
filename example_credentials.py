@@ -20,7 +20,10 @@ initials = {
 # This calendar will be split by events starting wtih initials.
 combined_cal = ""
 
-personal_cals = {}
+personal_cals = {
+    "Link": "Name1",
+    "Link": "Name_Two",
+}
 
 quote_url = "https://zenquotes.io/api/today"
 
