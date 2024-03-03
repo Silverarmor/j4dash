@@ -38,6 +38,20 @@ async function refreshMenu() {
     dinner.textContent = data.dinner;
 
     menuElementContainer.appendChild(dinner);
+
+    // Create div for people info
+    const peopleInfo = document.createElement("div");
+    peopleInfo.classList.add("peopleinfo");
+    peopleInfo.textContent = data.people_info;
+
+    menuElementContainer.appendChild(peopleInfo);
+
+    // Create div for delivery info
+    const deliveryInfo = document.createElement("div");
+    deliveryInfo.classList.add("deliveryinfo");
+    deliveryInfo.textContent = data.shopping;
+
+    menuElementContainer.appendChild(deliveryInfo)
 }
 
 // On startup

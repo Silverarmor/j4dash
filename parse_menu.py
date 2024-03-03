@@ -38,28 +38,27 @@ def main():
     # Get today's row
     row = values[row_index]
 
-    breakfast = row[1]
-    lunch = row[2]
-    dinner = row[3]
-    snacks = row[4]
-    notes = row[5]
+    chef = row[1]
+    dinner = row[2]
+    notes = row[3]
+    people_info = row[4]
+    shopping = row[5]
 
     person = ""
 
     # check who is cooking (ALL, JAC, JP, JT, JK)
     for inits in initials:
-        if dinner.startswith(inits):
+        if chef.startswith(inits):
             person = initials[inits]
             break
     
     # Create the json object
     menu = {
         "chef": person,
-        "breakfast": breakfast,
-        "lunch": lunch,
         "dinner": dinner,
-        "snacks": snacks,
-        "notes": notes
+        "notes": notes,
+        "people_info": people_info,
+        "shopping": shopping
     }
 
     print(menu)
