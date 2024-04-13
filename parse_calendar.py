@@ -241,12 +241,25 @@ def parse_combined_calendar(url: str, json_data: list) -> list:
 
         ### Attempt to update JSON data
 
-        # If "everyone" 5th element doesn't exist, create it
+        # Check if user is "Everyone"
         if user_index == 4:
-            try:
-                json_data[4]
-            except IndexError:
-                json_data.append({"user": "Everyone", "events": []})
+            if "[ALL]" in event_data["name"]:
+                # Remove "[ALL]" from event summary
+                # event_data["name"] = event_data["name"].replace("[ALL]", "").strip()
+
+                # Place into everyone's calendar
+                for user_data in json_data:
+                    user_data["events"].append(event_data)
+
+                continue
+                #! Skips rest of the loop
+
+            else: 
+                try:
+                    json_data[4]
+                except IndexError:
+                    # If "everyone" 5th element doesn't exist, create it
+                    json_data.append({"user": "Everyone", "events": []})
 
         # Append event to json data
         for user_data in json_data:

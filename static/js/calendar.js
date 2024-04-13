@@ -74,7 +74,7 @@ async function refreshCalendar() {
         // loop through the events each user has.
         for (const event of user.events) {
             // console.log(event.name, event.start, event.end, event.duration, event.description, event.location);
-
+            console.log(event.name)
             // create an element (chip) for the event
             const eventChip = document.createElement("div");
             const eventbg = document.createElement("div");
@@ -120,6 +120,15 @@ async function refreshCalendar() {
 
                 //! SKIP TO NEXT EVENT
                 continue;
+
+            }
+
+            // If event has [NA], skip
+            if (event.name.includes("[NA]")) {
+                //! SKIP TO NEXT EVENT
+                console.log("Skipping:")
+                console.log(event.name)
+                continue;
             }
 
             //* Decide colour for the event.
@@ -152,7 +161,15 @@ async function refreshCalendar() {
 
             if (colour == "blank") {
                 colour = colour_palette["default"];
+
+                if (event.name.includes("[ALL]")) {
+                    colour = "#d3d3d3"
+                    // remove [ALL] from event name
+                    event.name = event.name.replace("[ALL]", "").trim();
+                }
             }
+
+            
 
             // console.log(colour);
             // console.log(colour_palette)
@@ -249,6 +266,7 @@ function getHeight() {
 async function fetchTimetable() {
     console.log("Fetching events")
     const events = await fetch("/api/cal").then(res => res.json()); // (res)sponse
+    console.log("Received events! Parsing...")
     // console.log(events);
 
     return events;
