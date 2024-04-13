@@ -2,6 +2,7 @@ from flask import Flask, render_template
 import parse_calendar
 import parse_menu
 import helper
+import json
 
 
 ##* WEB APP ##
@@ -15,18 +16,17 @@ def home():
 
     quote, author = helper.getQuote()
 
-    return render_template("index.html", date=date, quote=quote, author=author)
+    return render_template("index.html", quote=quote, author=author)
 
-@app.route("/more")
-def more():
-    return render_template("more.html")
+@app.route("/api/date")
+def date():
+    return json.dumps({"date": helper.getDateReadable()})
 
 @app.route("/api/cal")
 def cal():
     return parse_calendar.parse_all_calendars()
 
     #! TESTING LINE
-    import json
     with open("example.json") as file:
         data = json.load(file)
     return data
@@ -36,10 +36,14 @@ def menu():
     return parse_menu.main()
 
     #! TESTING LINE
-    import json
     with open("examplemenu.json") as file:
         data = json.load(file)
     return data
+
+@app.route("/api/quote")
+def quote():
+    quote, author = helper.getQuote()
+    return json.dumps({"quote": quote, "author": author})
 
 
 # Run as flask app (locally only) for testing.
