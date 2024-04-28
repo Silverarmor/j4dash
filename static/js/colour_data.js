@@ -21,9 +21,11 @@ let JP_colours = {
     "POM: Lecture": "#B8E28D", // Light green
     "PCS1: Lecture": "#35827C", //lighter grey aka teal
     "MSS: Lecture": "#A97591", // pinky
+    "DS: Lecture": "#A97591", // pinky
     "POM Tbl": "#2E933C", // forest/mid green
     "PCS SGA": "#204E4A", // dark slate grey
     "MSS Tbl": "#8A5671", // magenta haze
+    "DS Tbl": "#8A5671", // magenta haze
 
     "default": "#93c47d"
 }
@@ -34,9 +36,11 @@ let JAC_colours = {
     "POM: Lecture": "#4BAA74",  // jade
     "PCS1: Lecture": "#83CFD8", // light blue
     "MSS: Lecture": "#87D4C3", // light blue/green
+    "DS: Lecture": "#87D4C3", // light blue/green
     "POM Tbl": "#065143", // green
     "PCS SGA": "#3BADBA",  //bluey moonstone
     "MSS Tbl": "#41B49B",  // idk
+    "DS Tbl": "#41B49B",  // idk
 
     "default": "#674ea7",
 }
