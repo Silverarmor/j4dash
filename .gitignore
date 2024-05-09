@@ -7,6 +7,7 @@ service_account.*
 .gcloudignore
 
 example.json
+example*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
