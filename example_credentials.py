@@ -17,6 +17,8 @@ initials = {
     "H": "Name_Four"
 }
 
+# Ensure to fill out /static/js/colour_data.js with the same initials.
+
 # This calendar will be split by events starting wtih initials.
 combined_cal = ""
 
