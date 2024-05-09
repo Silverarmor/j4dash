@@ -1,6 +1,8 @@
 runtime: python310
 entrypoint: gunicorn -b :$PORT main:app
 
+instance_class: F1
+
 # handlers:
 #   # This configures Google App Engine to serve the files in the app's static
 #   # directory.
