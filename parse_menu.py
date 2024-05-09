@@ -7,12 +7,23 @@ Gets menu from google sheet, parses into json format, and returns it to the API
 
 import gspread
 import helper
-from datetime import date
+from datetime import date, timedelta
 from credentials import *
 import json
 
 
 
+def determine_chef(chef) -> str:
+    # check who is cooking (ALL, JAC, JP, JT, JK)
+
+    decoded_chef = "N/A" #default
+
+    for inits in initials:
+        if chef.startswith(inits):
+            decoded_chef = initials[inits]
+            break
+    
+    return decoded_chef
 
 
 def main():
@@ -35,31 +46,36 @@ def main():
     # Calculate days since 13 Feb 2024 as a timedelta object
     row_index = (today_date - date(2024, 2, 13)).days 
 
-    # Get today's row
-    row = values[row_index]
+    # create json list
+    menu = []
 
-    chef = row[1]
-    dinner = row[2]
-    notes = row[3]
-    people_info = row[4]
-    shopping = row[5]
+    # Loop through 3 days
+    for i in range(3):
+        # Get the day's row
+        row = values[row_index]
 
-    person = ""
+        chef = row[1]
+        dinner = row[2]
+        notes = row[3]
+        people_info = row[4]
+        shopping = row[5]
 
-    # check who is cooking (ALL, JAC, JP, JT, JK)
-    for inits in initials:
-        if chef.startswith(inits):
-            person = initials[inits]
-            break
-    
-    # Create the json object
-    menu = {
-        "chef": person,
-        "dinner": dinner,
-        "notes": notes,
-        "people_info": people_info,
-        "shopping": shopping
-    }
+        person = determine_chef(chef)
+
+        # Create the json object
+        day_data = {
+            "date": today_date.strftime("%A %d"),
+            "chef": person,
+            "dinner": dinner,
+            "notes": notes,
+            "people_info": people_info,
+            "shopping": shopping,
+        }
+
+        menu.append(day_data)
+
+        row_index+=1
+        today_date += timedelta(1)
 
     print(menu)
     json_menu = json.dumps(menu)
@@ -68,7 +84,6 @@ def main():
 
 
 
-
-
 if __name__ == '__main__':
-    main()
+    json_menu = main()
+    print(json_menu)

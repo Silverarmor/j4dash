@@ -27,9 +27,11 @@ def cal():
     return parse_calendar.parse_all_calendars()
 
     #! TESTING LINE
-    with open("example.json") as file:
+    with open("examplecal.json") as file:
         data = json.load(file)
     return data
+
+
 
 @app.route("/api/menu")
 def menu():
