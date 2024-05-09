@@ -74,7 +74,8 @@ async function refreshCalendar() {
         // loop through the events each user has.
         for (const event of user.events) {
             // console.log(event.name, event.start, event.end, event.duration, event.description, event.location);
-            console.log(event.name)
+            // console.log(event.name)
+
             // create an element (chip) for the event
             const eventChip = document.createElement("div");
             const eventbg = document.createElement("div");
@@ -99,7 +100,7 @@ async function refreshCalendar() {
             eventChip.style.top = `${eventOffset}px`;
 
             // Set the height of the event
-            const duration = (end - start)/1000/3600;
+            let duration = (end - start)/1000/3600;
 
             // if duration less than 0.5, set to 0.5 hours.
             if (duration < 0.5) {

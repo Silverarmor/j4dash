@@ -71,6 +71,12 @@ def boundary_checks(event):
         if event['DTSTART'].dt.hour > 21 and event['DTEND'].dt.hour > 21:
             valid = False
 
+        # if event ends after the start date, set end to start date then set time to 9pm
+        #! NOTE this means multiday events w/ times only work on day 1
+        if event['DTEND'].dt.day > event['DTSTART'].dt.day:
+            event['DTEND'].dt = event['DTEND'].dt.replace(day=event['DTSTART'].dt.day)
+            event['DTEND'].dt = event['DTEND'].dt.replace(hour=21, minute=0, second=0)
+
         # Set event end to 9pm if later
         if event['DTEND'].dt.hour > 21 or (event['DTEND'].dt.hour == 21 and event['DTEND'].dt.minute > 0):
             event['DTEND'].dt = event['DTEND'].dt.replace(hour=21, minute=0, second=0)
