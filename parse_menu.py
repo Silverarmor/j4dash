@@ -16,7 +16,7 @@ import json
 def determine_chef(chef) -> str:
     # check who is cooking (ALL, JAC, JP, JT, JK)
 
-    decoded_chef = "N/A" #default
+    decoded_chef = chef
 
     for inits in initials:
         if chef.startswith(inits):
