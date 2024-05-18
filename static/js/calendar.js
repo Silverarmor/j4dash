@@ -162,15 +162,14 @@ async function refreshCalendar() {
 
             if (colour == "blank") {
                 colour = colour_palette["default"];
-
-                if (event.name.includes("[ALL]")) {
-                    colour = "#d3d3d3"
-                    // remove [ALL] from event name
-                    event.name = event.name.replace("[ALL]", "").trim();
-                }
             }
 
-            
+            if (event.name.includes("[ALL]")) {
+                colour = "#d3d3d3"
+                // remove [ALL] from event name
+                event.name = event.name.replace("[ALL]", "").trim();
+            }
+
 
             // console.log(colour);
             // console.log(colour_palette)
