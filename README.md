@@ -17,6 +17,12 @@ Ensure colour JavaScript file is also completed.
 
 Once setup, simply run `gcloud app deploy` in the root directory and the website will publish!
 
+## Features
+
+- Include `[ALL]` anywhere in an event (on combined calendar) to duplicate event to all calendars, with unique colour
+- Include `[NA]` in any event to NOT render it on the dashboard. (i.e. skip), *N*OT *A*TTENDING
+- Multiperson events are constructed with `AA & BB: event name`, `CC & DD & EE : Event`, using the ampersand operator. These events MUST use a dash or colon to separate initials from event name.
+
 ## Credit
 
 - [@Excigma](https://github.com/Excigma) for constant support, rubber duckying, and JS & CSS mentoring.
