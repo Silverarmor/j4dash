@@ -194,7 +194,10 @@ def parse_combined_calendar(url: str, json_data: list) -> list:
         if valid == False:
             continue
 
-        # Determine whose event this is
+        # Strip leading and trailing whitespace
+        event['SUMMARY'] = event['SUMMARY'].strip()
+
+        #* Determine whose event this is
         # Loop through initials dictionary, checking the start of the event summary
         user = "Everyone"
         for inits in initials:
