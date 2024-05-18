@@ -6,6 +6,19 @@ import credentials
 # Set timezone for all datetime.now() requests
 tz = pytz.timezone('Pacific/Auckland')
 
+
+def get_ordinal_suffix(day: int) -> str:
+    """
+    Returns the ordinal suffix for a given day.
+
+    Parameters:
+    day (int): The day for which the ordinal suffix is needed.
+
+    Returns:
+    str: The ordinal suffix for the given day.
+    """
+    return {1: 'st', 2: 'nd', 3: 'rd'}.get(day % 10, 'th') if day not in (11, 12, 13) else 'th'
+
 def getDateReadable() -> str:
     """
     Get the current date in the format Monday, 3rd January 2023.
@@ -15,8 +28,6 @@ def getDateReadable() -> str:
     """
     day_of_week = datetime.now(tz).strftime("%A")
 
-    def get_ordinal_suffix(day: int) -> str:
-        return {1: 'st', 2: 'nd', 3: 'rd'}.get(day % 10, 'th') if day not in (11, 12, 13) else 'th'
 
     day = int(datetime.now(tz).strftime("%d"))
     ordinal_suffix = get_ordinal_suffix(day)
