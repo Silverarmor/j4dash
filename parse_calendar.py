@@ -251,7 +251,7 @@ def parse_combined_calendar(url: str, json_data: list) -> list:
         # Calculate duration of event
         duration = event['DTEND'].dt - event['DTSTART'].dt
 
-        print(user_index_list)
+        # print(user_index_list)
 
         # Loop through user indexes for event
         for user_index in user_index_list:
@@ -311,7 +311,7 @@ def parse_combined_calendar(url: str, json_data: list) -> list:
 
 
             # Append event to json data
-            print(user)
+            # print(user)
             for user_data in json_data:
                 if user_data["user"] == user:
                     user_data["events"].append(event_data)
