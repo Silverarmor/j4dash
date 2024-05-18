@@ -109,6 +109,23 @@ def check_empty(json_data):
     return json_data
 
 
+def determine_user_index(user: str) -> int:
+    match user:
+        case "Jayden":
+            user_index = 0
+        case "Joshua_T":
+            user_index = 1
+        case "Jacob":
+            user_index = 2
+        case "Joshua_AC":
+            user_index = 3
+        case "Everyone": #default
+            user_index = 4
+        case _: # Case of error/doesnt match
+            user_index = 4
+
+    return user_index
+
 def parse_single_timetable_calendar(url: str) -> str:
     """
     Parse users' timetable calendar into json format
@@ -185,7 +202,7 @@ def parse_combined_calendar(url: str, json_data: list) -> list:
 
     # Loop through today's events
     for event in events_today:
-        # print(event['SUMMARY'])
+        print(event['SUMMARY'])
 
         # Verify valid event, and apply boundaries
         event, valid = boundary_checks(event)
@@ -198,82 +215,108 @@ def parse_combined_calendar(url: str, json_data: list) -> list:
         event['SUMMARY'] = event['SUMMARY'].strip()
 
         #* Determine whose event this is
-        # Loop through initials dictionary, checking the start of the event summary
-        user = "Everyone"
-        for inits in initials:
-            if event['SUMMARY'].startswith(inits):
-                user = initials[inits]
-                break
 
-        # Determine list position depending on whose event it is
-        match user:
-            case "Jayden":
-                user_index = 0
-            case "Joshua_T":
-                user_index = 1
-            case "Jacob":
-                user_index = 2
-            case "Joshua_AC":
-                user_index = 3
-            case "Everyone":
-                user_index = 4
-            # NOTE if event is not linked to a person, new column is created.
+        user_index_list = []
+
+        # Process initials
+        while True:
+
+            # Default
+            user = "Everyone"
+
+            # Loop through initials dictionary, checking the start of the event summary
+            for inits in initials:
+                if event['SUMMARY'].startswith(inits):
+                    # Identify the user, then append this to the index list.
+                    user = initials[inits]
+
+                    # Remove those initials from event summary
+                    event['SUMMARY'] = event['SUMMARY'][len(inits):].strip()
+
+                    break
+                    
+            # Update list with user index
+            user_index_list.append(determine_user_index(user))
 
 
-        # Clean event summary, where format is JK - EVENT CONTENT
-        if user_index != 4:
-            # if dash present, remove text before it. Note split once only
-            if "-" in event['SUMMARY']:
-                event['SUMMARY'] = event['SUMMARY'].split('-', 1)[1]
-            elif ":" in event['SUMMARY']:
-                event['SUMMARY'] = event['SUMMARY'].split(':', 1)[1]
+            # Check if multiperson event
+            if event['SUMMARY'].startswith("&"):
+                # Remove "&" from event summary
+                event['SUMMARY'] = event['SUMMARY'][1:].strip()
+                # reruns the loop
             else:
-                # Assume no dash or colon, format JK event content
-                event['SUMMARY'] = event['SUMMARY'][len(list(initials.keys())[user_index]):]
-
-            # Strip leading and trailing whitespace
-            event['SUMMARY'] = event['SUMMARY'].strip()
-
+                # No more initials to process
+                break
 
         # Calculate duration of event
         duration = event['DTEND'].dt - event['DTSTART'].dt
 
-        # prepare json data
-        event_data = {
-            "name": str(event['SUMMARY']),
-            "start": str(event['DTSTART'].dt),
-            "end": str(event['DTEND'].dt),
-            "location": str(event['LOCATION']) if 'LOCATION' in event else "",
-            "description": str(event['DESCRIPTION']) if 'DESCRIPTION' in event else "",
-            "duration": str(duration)
-        }
+        print(user_index_list)
 
-        ### Attempt to update JSON data
+        # Loop through user indexes for event
+        for user_index in user_index_list:
 
-        # Check if user is "Everyone"
-        if user_index == 4:
-            if "[ALL]" in event_data["name"]:
-                # Remove "[ALL]" from event summary
-                # event_data["name"] = event_data["name"].replace("[ALL]", "").strip()
 
-                # Place into everyone's calendar
-                for user_data in json_data:
+            # Clean event summary, where format is JK - EVENT or JK: EVENT
+            if user_index != 4:
+                # if dash present, remove text before it. Note split once only
+                if "-" in event['SUMMARY']:
+                    event['SUMMARY'] = event['SUMMARY'].split('-', 1)[1]
+                elif ":" in event['SUMMARY']:
+                    event['SUMMARY'] = event['SUMMARY'].split(':', 1)[1]
+
+                # Strip leading and trailing whitespace
+                event['SUMMARY'] = event['SUMMARY'].strip()
+
+
+
+            # prepare json data
+            event_data = {
+                "name": str(event['SUMMARY']),
+                "start": str(event['DTSTART'].dt),
+                "end": str(event['DTEND'].dt),
+                "location": str(event['LOCATION']) if 'LOCATION' in event else "",
+                "description": str(event['DESCRIPTION']) if 'DESCRIPTION' in event else "",
+                "duration": str(duration)
+            }
+
+            ### Attempt to update JSON data
+
+            # Check if user is "Everyone"
+            if user_index == 4:
+                user = "Everyone"
+                    
+
+                # Check for EVERYONE events. If event summary contains "[ALL]"
+                if "[ALL]" in event_data["name"]:
+                    # [ALL] is removed in JS.
+
+                    # Place into everyone's calendar
+                    for user_data in json_data:
+                        user_data["events"].append(event_data)
+
+                    continue
+                    #! Skips rest of the loop
+
+                else: 
+                    try:
+                        json_data[4]
+                    except IndexError:
+                        # If "everyone" 5th element doesn't exist, create it
+                        json_data.append({"user": "Everyone", "events": []})
+            
+            else:
+                # If not everyone, get user from user index
+                user = list(initials.values())[user_index]
+
+
+            # Append event to json data
+            print(user)
+            for user_data in json_data:
+                if user_data["user"] == user:
                     user_data["events"].append(event_data)
 
-                continue
-                #! Skips rest of the loop
 
-            else: 
-                try:
-                    json_data[4]
-                except IndexError:
-                    # If "everyone" 5th element doesn't exist, create it
-                    json_data.append({"user": "Everyone", "events": []})
-
-        # Append event to json data
-        for user_data in json_data:
-            if user_data["user"] == user:
-                user_data["events"].append(event_data)
     # Return updated json data.
     return json_data
 
