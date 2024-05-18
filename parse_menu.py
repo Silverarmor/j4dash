@@ -10,6 +10,7 @@ import helper
 from datetime import date, timedelta
 from credentials import *
 import json
+import helper
 
 
 
@@ -62,9 +63,14 @@ def main():
 
         person = determine_chef(chef)
 
+        # Determine date
+        day_of_week = today_date.strftime("%A")
+        day = today_date.strftime("%d")
+        suffix = helper.get_ordinal_suffix(int(day))
+
         # Create the json object
         day_data = {
-            "date": today_date.strftime("%A %d"),
+            "date": f"{day_of_week} {day}{suffix}",
             "chef": person,
             "dinner": dinner,
             "notes": notes,
@@ -77,7 +83,7 @@ def main():
         row_index+=1
         today_date += timedelta(1)
 
-    print(menu)
+    # print(menu)
     json_menu = json.dumps(menu)
 
     return json_menu

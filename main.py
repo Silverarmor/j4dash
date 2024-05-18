@@ -12,8 +12,6 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    date = helper.getDateReadable()
-
     quote, author = helper.getQuote()
 
     return render_template("index.html", quote=quote, author=author)
