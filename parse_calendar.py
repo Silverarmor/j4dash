@@ -202,7 +202,7 @@ def parse_combined_calendar(url: str, json_data: list) -> list:
 
     # Loop through today's events
     for event in events_today:
-        print(event['SUMMARY'])
+        # print(event['SUMMARY'])
 
         # Verify valid event, and apply boundaries
         event, valid = boundary_checks(event)
