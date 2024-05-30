@@ -78,7 +78,7 @@ def boundary_checks(event):
             event['DTEND'].dt = event['DTEND'].dt.replace(hour=21, minute=0, second=0)
 
         # Set event end to 9pm if later
-        if event['DTEND'].dt.hour > 21 or (event['DTEND'].dt.hour == 21 and event['DTEND'].dt.minute > 0):
+        if event['DTEND'].dt.hour >= 21 and event['DTEND'].dt.minute > 0:
             event['DTEND'].dt = event['DTEND'].dt.replace(hour=21, minute=0, second=0)
 
         # If event starts before 8am but stops after 8:30am, set start to 8am
