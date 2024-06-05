@@ -65,7 +65,7 @@ def main():
 
         # Determine date
         day_of_week = today_date.strftime("%A")
-        day = today_date.strftime("%d")
+        day = str(int(today_date.strftime("%d")))
         suffix = helper.get_ordinal_suffix(int(day))
 
         # Create the json object
