@@ -1,7 +1,8 @@
 """
 parse_calendar.py
 
-This file is responsible for parsing the calendar data from the icalendar format to a json format.
+This file is responsible for parsing the calendar data from the icalendar
+format to a json format.
 
 """
 import icalendar
@@ -11,10 +12,8 @@ from datetime import timedelta
 import requests
 import json
 
-from credentials import *
+import credentials
 import helper
-
-
 
 
 def download_calendar(url):
@@ -43,9 +42,9 @@ def get_events_today(cal) -> list:
 
     events_today = recurring_ical_events.of(cal).at(check_date)
 
-    if testing_date != False:
-        events_today = recurring_ical_events.of(cal).at(testing_date)
-
+    if credentials.testing_date is not None:
+        events_today = recurring_ical_events.of(
+            cal).at(credentials.testing_date)
     return events_today
 
 
@@ -57,7 +56,8 @@ def boundary_checks(event):
         event (dict): The event to be checked.
 
     Returns:
-        tuple: A tuple containing the modified event and a boolean indicating if the event is valid.
+        tuple: A tuple containing the modified event and a boolean indicating
+        if the event is valid.
     """
 
     valid = True
@@ -71,19 +71,24 @@ def boundary_checks(event):
         if event['DTSTART'].dt.hour >= 21 and event['DTEND'].dt.hour >= 21:
             valid = False
 
-        # if event ends after the start date, set end to start date then set time to 9pm
-        #! NOTE this means multiday events w/ times only work on day 1
+        # if event ends after the start date
+        # set end to start date then set time to 9pm
+        # NOTE this means multiday events w/ times only work on day 1
         if event['DTEND'].dt.day > event['DTSTART'].dt.day:
-            event['DTEND'].dt = event['DTEND'].dt.replace(day=event['DTSTART'].dt.day)
-            event['DTEND'].dt = event['DTEND'].dt.replace(hour=21, minute=0, second=0)
+            event['DTEND'].dt = event['DTEND'].dt.replace(
+                day=event['DTSTART'].dt.day)
+            event['DTEND'].dt = event['DTEND'].dt.replace(
+                hour=21, minute=0, second=0)
 
         # Set event end to 9pm if later
         if event['DTEND'].dt.hour >= 21 and event['DTEND'].dt.minute > 0:
-            event['DTEND'].dt = event['DTEND'].dt.replace(hour=21, minute=0, second=0)
+            event['DTEND'].dt = event['DTEND'].dt.replace(
+                hour=21, minute=0, second=0)
 
         # If event starts before 8am but stops after 8:30am, set start to 8am
         if event['DTSTART'].dt.hour < 8 and event['DTEND'].dt.hour >= 9:
-            event['DTSTART'].dt = event['DTSTART'].dt.replace(hour=8, minute=0, second=0)
+            event['DTSTART'].dt = event['DTSTART'].dt.replace(
+                hour=8, minute=0, second=0)
 
     return event, valid
 
@@ -119,12 +124,13 @@ def determine_user_index(user: str) -> int:
             user_index = 2
         case "Joshua_AC":
             user_index = 3
-        case "Everyone": #default
+        case "Everyone":  # default
             user_index = 4
-        case _: # Case of error/doesnt match
+        case _:  # Case of error/doesnt match
             user_index = 4
 
     return user_index
+
 
 def parse_single_timetable_calendar(url: str) -> str:
     """
@@ -156,13 +162,14 @@ def parse_single_timetable_calendar(url: str) -> str:
         event, valid = boundary_checks(event)
 
         # If event is invalid, i.e. out of bounds, skip to next event
-        if valid == False:
+        if not valid:
             continue
 
         # Clean event summary by removing any text after a colon if present
         # note we keep 1 word after the colon
         if ":" in event['SUMMARY']:
-            event['SUMMARY'] = event['SUMMARY'].split(':')[0] + ': ' + event['SUMMARY'].split(':')[1].split()[0]
+            event['SUMMARY'] = event['SUMMARY'].split(
+                ':')[0] + ': ' + event['SUMMARY'].split(':')[1].split()[0]
 
         # Calculate duration of event
         duration = event['DTEND'].dt - event['DTSTART'].dt
@@ -173,7 +180,8 @@ def parse_single_timetable_calendar(url: str) -> str:
             "start": str(event['DTSTART'].dt),
             "end": str(event['DTEND'].dt),
             "location": str(event['LOCATION']) if 'LOCATION' in event else "",
-            "description": str(event['DESCRIPTION']) if 'DESCRIPTION' in event else "",
+            "description": str(event['DESCRIPTION']) if 'DESCRIPTION' in event
+            else "",
             "duration": str(duration)
         }
 
@@ -185,8 +193,8 @@ def parse_single_timetable_calendar(url: str) -> str:
 def parse_combined_calendar(url: str, json_data: list) -> list:
     """
     Parses a combined calendar by downloading the calendar from the given URL,
-    extracting today's events, applying boundary checks, and organizing the events
-    based on the person associated with each event.
+    extracting today's events, applying boundary checks, and organizing the
+    events based on the person associated with each event.
 
     Args:
         url (str): The URL of the calendar to download.
@@ -208,13 +216,13 @@ def parse_combined_calendar(url: str, json_data: list) -> list:
         event, valid = boundary_checks(event)
 
         # If event is invalid, i.e. out of bounds, skip to next event
-        if valid == False:
+        if not valid:
             continue
 
         # Strip leading and trailing whitespace
         event['SUMMARY'] = event['SUMMARY'].strip()
 
-        #* Determine whose event this is
+        # * Determine whose event this is
 
         user_index_list = []
 
@@ -224,20 +232,19 @@ def parse_combined_calendar(url: str, json_data: list) -> list:
             # Default
             user = "Everyone"
 
-            # Loop through initials dictionary, checking the start of the event summary
-            for inits in initials:
+            # Loop through initials dictionary, checking start of event summary
+            for inits in credentials.initials:
                 if event['SUMMARY'].startswith(inits):
                     # Identify the user, then append this to the index list.
-                    user = initials[inits]
+                    user = credentials.initials[inits]
 
                     # Remove those initials from event summary
                     event['SUMMARY'] = event['SUMMARY'][len(inits):].strip()
 
                     break
-                    
+
             # Update list with user index
             user_index_list.append(determine_user_index(user))
-
 
             # Check if multiperson event
             if event['SUMMARY'].startswith("&"):
@@ -256,7 +263,6 @@ def parse_combined_calendar(url: str, json_data: list) -> list:
         # Loop through user indexes for event
         for user_index in user_index_list:
 
-
             # Clean event summary, where format is JK - EVENT or JK: EVENT
             if user_index != 4:
                 # if dash present, remove text before it. Note split once only
@@ -268,24 +274,23 @@ def parse_combined_calendar(url: str, json_data: list) -> list:
                 # Strip leading and trailing whitespace
                 event['SUMMARY'] = event['SUMMARY'].strip()
 
-
-
             # prepare json data
             event_data = {
                 "name": str(event['SUMMARY']),
                 "start": str(event['DTSTART'].dt),
                 "end": str(event['DTEND'].dt),
-                "location": str(event['LOCATION']) if 'LOCATION' in event else "",
-                "description": str(event['DESCRIPTION']) if 'DESCRIPTION' in event else "",
+                "location": str(event['LOCATION']) if 'LOCATION' in event
+                else "",
+                "description": str(event['DESCRIPTION']) if 'DESCRIPTION' in
+                event else "",
                 "duration": str(duration)
             }
 
-            ### Attempt to update JSON data
+            # Attempt to update JSON data
 
             # Check if user is "Everyone"
             if user_index == 4:
                 user = "Everyone"
-                    
 
                 # Check for EVERYONE events. If event summary contains "[ALL]"
                 if "[ALL]" in event_data["name"]:
@@ -296,26 +301,24 @@ def parse_combined_calendar(url: str, json_data: list) -> list:
                         user_data["events"].append(event_data)
 
                     continue
-                    #! Skips rest of the loop
+                    # Skips rest of the loop
 
-                else: 
+                else:
                     try:
                         json_data[4]
                     except IndexError:
                         # If "everyone" 5th element doesn't exist, create it
                         json_data.append({"user": "Everyone", "events": []})
-            
+
             else:
                 # If not everyone, get user from user index
-                user = list(initials.values())[user_index]
-
+                user = list(credentials.initials.values())[user_index]
 
             # Append event to json data
             # print(user)
             for user_data in json_data:
                 if user_data["user"] == user:
                     user_data["events"].append(event_data)
-
 
     # Return updated json data.
     return json_data
@@ -326,11 +329,10 @@ def parse_personal_calendars(json_data: list) -> list:
     Parse personal calendars into json format
     """
 
-    for url in personal_cals:
+    for url in credentials.personal_cals:
         cal = download_calendar(url)
 
         events_today = get_events_today(cal)
-
 
         # Loop through today's events
         for event in events_today:
@@ -339,14 +341,14 @@ def parse_personal_calendars(json_data: list) -> list:
             event, valid = boundary_checks(event)
 
             # If event is invalid, i.e. out of bounds, skip to next event
-            if valid == False:
+            if not valid:
                 continue
 
             # Calculate duration of event
             duration = event['DTEND'].dt - event['DTSTART'].dt
 
             # Determine whose event this is
-            user = personal_cals[url]
+            user = credentials.personal_cals[url]
 
             # Check for EVERYONE events. If event summary ends in "EVERYONE"
             # then set user to everyone
@@ -355,7 +357,8 @@ def parse_personal_calendars(json_data: list) -> list:
 
                 # Remove "- EVERYONE" from end of event summary
                 # and remove leading/trailing whitespace
-                event['SUMMARY'] = event['SUMMARY'].replace("- EVERYONE", "").strip()
+                event['SUMMARY'] = event['SUMMARY'].replace(
+                    "- EVERYONE", "").strip()
 
                 # If "everyone" element doesn't exist, create it
                 try:
@@ -368,8 +371,10 @@ def parse_personal_calendars(json_data: list) -> list:
                 "name": str(event['SUMMARY']),
                 "start": str(event['DTSTART'].dt),
                 "end": str(event['DTEND'].dt),
-                "location": str(event['LOCATION']) if 'LOCATION' in event else "",
-                "description": str(event['DESCRIPTION']) if 'DESCRIPTION' in event else "",
+                "location": str(event['LOCATION']) if 'LOCATION' in event
+                else "",
+                "description": str(event['DESCRIPTION']) if 'DESCRIPTION' in
+                event else "",
                 "duration": str(duration)
             }
 
@@ -382,21 +387,22 @@ def parse_personal_calendars(json_data: list) -> list:
 
 
 def parse_all_calendars():
-
     """
-    Iterate through all calendars available in credentials.py and parse them into json format
+    Iterate through all calendars available in credentials.py
+    and parse them into json format
     Example format in example.json
     """
     # init
     json_data = []
 
     # loop through url dictionary for timetables
-    for name in timetable_links:
+    for name in credentials.timetable_links:
 
         # Construct each json
         user_json_data = {
             "user": name,
-            "events": parse_single_timetable_calendar(timetable_links[name])
+            "events": parse_single_timetable_calendar(
+                credentials.timetable_links[name])
         }
 
         # Append to json list
@@ -405,11 +411,10 @@ def parse_all_calendars():
     # loop through additional calendars.
 
     # Parse combined calendar and update json_data
-    json_data = parse_combined_calendar(combined_cal, json_data)
+    json_data = parse_combined_calendar(credentials.combined_cal, json_data)
 
     # Parse personal calendars and update json_data
     json_data = parse_personal_calendars(json_data)
-
 
     # Check if events are empty
     json_data = check_empty(json_data)

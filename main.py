@@ -5,7 +5,7 @@ import helper
 import json
 
 
-##* WEB APP ##
+# WEB APP #
 app = Flask(__name__)
 # app.config.from_object('config')
 
@@ -16,29 +16,31 @@ def home():
 
     return render_template("index.html", quote=quote, author=author)
 
+
 @app.route("/api/date")
 def date():
     return json.dumps({"date": helper.getDateReadable()})
+
 
 @app.route("/api/cal")
 def cal():
     return parse_calendar.parse_all_calendars()
 
-    #! TESTING LINE
+# TESTING LINE
     with open("examplecal.json") as file:
         data = json.load(file)
     return data
-
 
 
 @app.route("/api/menu")
 def menu():
     return parse_menu.main()
 
-    #! TESTING LINE
+    # TESTING LINE
     with open("examplemenu.json") as file:
         data = json.load(file)
     return data
+
 
 @app.route("/api/quote")
 def quote():

@@ -17,7 +17,11 @@ def get_ordinal_suffix(day: int) -> str:
     Returns:
     str: The ordinal suffix for the given day.
     """
-    return {1: 'st', 2: 'nd', 3: 'rd'}.get(day % 10, 'th') if day not in (11, 12, 13) else 'th'
+    if 11 <= day <= 13:
+        return 'th'
+    else:
+        return {1: 'st', 2: 'nd', 3: 'rd'}.get(day % 10, 'th')
+
 
 def getDateReadable() -> str:
     """
@@ -27,7 +31,6 @@ def getDateReadable() -> str:
         str: The formatted date string.
     """
     day_of_week = datetime.now(tz).strftime("%A")
-
 
     day = int(datetime.now(tz).strftime("%d"))
     ordinal_suffix = get_ordinal_suffix(day)
@@ -65,6 +68,7 @@ def getQuote() -> tuple[str, str]:
 
     return quote, author
 
+
 def decide_day_check() -> date:
     """
     Helper function that decides what date to check for events.
@@ -76,6 +80,4 @@ def decide_day_check() -> date:
     # If past 8pm, check tomorrow's events
     if datetime.now(tz).hour >= 20:
         check_date += timedelta(1)
-
-
     return check_date
