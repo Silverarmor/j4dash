@@ -6,12 +6,10 @@ Gets menu from google sheet, parses into json format, and returns it to the API
 """
 
 import gspread
-import helper
 from datetime import date, timedelta
-from credentials import *
+import credentials
 import json
 import helper
-
 
 
 def determine_chef(chef) -> str:
@@ -19,11 +17,11 @@ def determine_chef(chef) -> str:
 
     decoded_chef = chef
 
-    for inits in initials:
+    for inits in credentials.initials:
         if chef.startswith(inits):
-            decoded_chef = initials[inits]
+            decoded_chef = credentials.initials[inits]
             break
-    
+
     return decoded_chef
 
 
@@ -32,7 +30,7 @@ def main():
     gc = gspread.service_account(filename="service_account.json")
 
     # Open the sheet
-    sh = gc.open_by_url("https://docs.google.com/spreadsheets/d/1Zck-jr2AarnekU2aEVZ2758NqdLvZ_zzRvqmzR2s704/edit#gid=1048819164")
+    sh = gc.open_by_url(credentials.menu_sheet)
 
     worksheet = sh.worksheet("Meal Plan")
 
@@ -41,11 +39,11 @@ def main():
     # Remove the header row
     values.pop(0)
 
-    # Get today's date 
+    # Get today's date
     today_date = helper.getDateToday()
 
     # Calculate days since 13 Feb 2024 as a timedelta object
-    row_index = (today_date - date(2024, 2, 13)).days 
+    row_index = (today_date - date(2024, 2, 13)).days
 
     # create json list
     menu = []
@@ -80,14 +78,13 @@ def main():
 
         menu.append(day_data)
 
-        row_index+=1
+        row_index += 1
         today_date += timedelta(1)
 
     # print(menu)
     json_menu = json.dumps(menu)
 
     return json_menu
-
 
 
 if __name__ == '__main__':

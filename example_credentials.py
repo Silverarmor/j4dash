@@ -2,7 +2,7 @@
 
 # Timetable
 timetable_links = {
-    ### NOTE THE ORDER OF NAMES IN DICT MUST STAY THE SAME! ###
+    # NOTE THE ORDER OF NAMES IN DICT MUST STAY THE SAME! ###
     # Must USE _ UNDERSCORES, NO SPACES
     "Name1": "",
     "Name_Two": "",
@@ -23,14 +23,14 @@ initials = {
 combined_cal = ""
 
 personal_cals = {
-    "Link": "Name1",
-    "Link": "Name_Two",
+    "Link": "Name",
+    "Link_Two": "Name_Two",
 }
 
 quote_url = "https://zenquotes.io/api/today"
 
-
+menu_sheet = ""
 # Set a testing date if you want the calendar to render a different date.
 # NOTE this doesn't affect date display/percentage etc.
-testing_date = False
+testing_date = None
 # testing_date = (2024,2,29)
