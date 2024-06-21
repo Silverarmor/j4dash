@@ -43,7 +43,7 @@ def get_events_today(cal) -> list:
 
     events_today = recurring_ical_events.of(cal).at(check_date)
 
-    if testing_date != False:
+    if testing_date is not None:
         events_today = recurring_ical_events.of(cal).at(testing_date)
 
     return events_today
