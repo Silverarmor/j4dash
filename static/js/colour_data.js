@@ -7,11 +7,18 @@ let JK_colours = {
     // "STRCTENG 200 LAB": "",
     // "CIVIL 203 LAB": "",
 
-    "CIVIL 202": "rgb(255, 110, 50)", //ff6e32 orange
-    // "CIVIL 203": "rgb(252, 213, 129)", //ffd581 light yellow
-    "CIVIL 203": "rgb(151, 212, 80)", //c2fa78 light green
-    "STRCTENG 200": "rgb(243, 182, 31)", //yellow
-    "ENGSCI 211": "rgb(100, 100, 120)", // bluey grey
+    // "CIVIL 202": "rgb(255, 110, 50)", //ff6e32 orange
+    // // "CIVIL 203": "rgb(252, 213, 129)", //ffd581 light yellow
+    // "CIVIL 203": "rgb(151, 212, 80)", //c2fa78 light green
+    // "STRCTENG 200": "rgb(243, 182, 31)", //yellow
+    // "ENGSCI 211": "rgb(100, 100, 120)", // bluey grey
+
+    "CIVIL 200": "rgb(255, 110, 50)", //ff6e32 orange
+    "ENVENG 200": "rgb(151, 212, 80)", //c2fa78 light green
+    "STRCTENG 201": "rgb(243, 182, 31)", //yellow
+    "ENGGEN 204": "rgb(100, 100, 120)", // bluey grey
+
+
     "default": "rgb(248, 58, 34)", // dark red
 }
 
