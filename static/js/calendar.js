@@ -80,6 +80,7 @@ async function refreshCalendar() {
             const eventChip = document.createElement("div");
             const eventbg = document.createElement("div");
             const eventContent = document.createElement("div");
+            const eventLocation = document.createElement("span")
             eventChip.classList.add("chip");
             eventbg.classList.add("bgchip");
             eventContent.classList.add("chipcontent");
@@ -189,9 +190,14 @@ async function refreshCalendar() {
 
             // Set the content of the event
             eventContent.textContent = event.name;
-            eventChip.appendChild(eventContent);
 
+            // Set location
+            eventLocation.textContent = event.location;
+            eventContent.appendChild(eventLocation);
+            
+            
             // append to contentcolElement
+            eventChip.appendChild(eventContent);
             contentcolElement.appendChild(eventChip);
         }
     }
