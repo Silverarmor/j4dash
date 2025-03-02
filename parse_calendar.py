@@ -63,7 +63,7 @@ def boundary_checks(event):
     valid = True
     if hasattr(event['DTSTART'].dt, 'hour'):
 
-        # continue if event starts before 8am and stops before 8am
+        # continue if event starts before 8am and stops before 9am
         if event['DTSTART'].dt.hour < 8 and event['DTEND'].dt.hour <= 8:
             valid = False
 
