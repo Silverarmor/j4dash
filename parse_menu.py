@@ -34,7 +34,7 @@ def main():
     # Open the sheet
     sh = gc.open_by_url("https://docs.google.com/spreadsheets/d/1Zck-jr2AarnekU2aEVZ2758NqdLvZ_zzRvqmzR2s704/edit#gid=1048819164")
 
-    worksheet = sh.worksheet("Meal Plan")
+    worksheet = sh.worksheet("2025")
 
     values = worksheet.get_all_values()
 
@@ -44,8 +44,8 @@ def main():
     # Get today's date 
     today_date = helper.getDateToday()
 
-    # Calculate days since 13 Feb 2024 as a timedelta object
-    row_index = (today_date - date(2024, 2, 13)).days 
+    # Calculate days since 24 Feb 2025 as a timedelta object
+    row_index = (today_date - date(2025, 2, 24)).days 
 
     # create json list
     menu = []
