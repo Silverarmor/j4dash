@@ -13,6 +13,7 @@
     box-sizing: border-box;
     font-family: Arial; /* Backup font */
     font-family: 'Nunito', sans-serif; /* Primary font */
+    color: white;
 }
 
 body {
@@ -30,9 +31,10 @@ body {
     flex-direction: column;
     min-height: 100vh;
 
-    /* background-image: url("../images/backgroundimg1.jpg");
-    background-size: cover;
-    background-repeat: no-repeat; */
+    /* background-image: url("../images/backgroundimg1.jpg"); */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/SKY_EDIT.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
 
     /* background-color: #FA8BFF;
     background-image: linear-gradient(64deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%); */
@@ -40,8 +42,9 @@ body {
     /* background: rgb(43,210,255);
     background: linear-gradient(64deg, rgba(43,210,255,1) 0%, rgba(141,208,177,1) 21%, rgba(226,137,148,1) 48%, rgba(86,193,227,1) 69%, rgba(0,146,255,1) 100%); */
 
-    background-color: #FFFFFF;
-    background-image: linear-gradient(240deg, #ffb3b3 0%, #98adfc 50%, #ff5e64 100%);
+    /*! LAST USED */
+    /* background-color: #FFFFFF;
+    background-image: linear-gradient(240deg, #ffb3b3 0%, #98adfc 50%, #ff5e64 100%); */
 
 
   }
@@ -75,7 +78,6 @@ section {
 #clock {
     font-size: 80px;
     /* font-family: "Helvetica Neue", Helvetica; */
-    color: white;
     /* padding-left: 20px; */
     text-align: center;
     font-weight: bold;
@@ -120,12 +122,12 @@ th { /* header */
     font-weight: 700;
     font-size: 24px;
 
-    border: 1px solid #000000;
+    border: 1px solid #ffffff;
 
 }
 
 .menutable td {
-    border: 1px solid #000000;
+    border: 1px solid #ffffff;
     height: 50px;
     font-size: 16px;
     padding: 6px;
@@ -185,6 +187,7 @@ th { /* header */
     flex: 1;
     text-align: center;
     border-right: 1px solid rgb(150, 150, 150);
+    color: #000000
     /* border-left: 1px solid rgb(150, 150, 150); */
 }
 
@@ -231,7 +234,7 @@ th { /* header */
 
 .head2 > .tickbtm {
     height: 100%;
-    border-bottom: 2px solid rgb(60,60,60);
+    border-bottom: 2px solid rgb(200,200,200);
 }
 
 .head2content {
@@ -252,12 +255,12 @@ th { /* header */
 
 .ticktop {
     /* border-top: 1px solid rgb(100, 100, 100); */
-    border-bottom: 1px dashed rgb(215, 215, 215);
+    border-bottom: 1px dashed rgb(145, 145, 145);
     height: 50%;
 }
 
 .tickbtm {
-    border-bottom: 1px solid rgb(77, 77, 77);
+    border-bottom: 1px solid rgb(200, 200, 200);
     height: 50%;
 }
 
@@ -330,6 +333,17 @@ th { /* header */
     top: 0px;
     position: absolute;
     z-index: 4;
+    color: #000000;
+}
+
+/* location */
+.chipcontent span {
+    font-size: 14px;
+    font-weight: 600;
+    color: #000000;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
 }
 
 .chipA {
